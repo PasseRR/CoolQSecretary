@@ -33,6 +33,11 @@ class SendMessageComponent {
     @Autowired
     Gson gson
 
+    /**
+     * 发送jira消息
+     * @param key jira帐号
+     * @param message 消息内容
+     */
     void sendJiraMsg(String key, String message) {
         if (this.groupType == "discuss") {
             SendDiscussMessageReq req = new SendDiscussMessageReq()
@@ -46,6 +51,28 @@ class SendMessageComponent {
             req.setGroupId(this.groupId)
             req.setMessage(this.atUserPrefix(key) + message)
             req.setAutoEscape(false)
+
+            this.sendGroupMsg(req)
+        }
+    }
+
+    /**
+     * 发送gitlab消息通知
+     * @param message 消息内容
+     */
+    void sendGitlabMsg(String message) {
+        if (this.groupType == "discuss") {
+            SendDiscussMessageReq req = new SendDiscussMessageReq()
+            req.setDiscussId(this.groupId)
+            req.setMessage(message)
+            req.setAutoEscape(true)
+
+            this.sendDiscussMsg(req)
+        } else {
+            SendGroupMessageReq req = new SendGroupMessageReq()
+            req.setGroupId(this.groupId)
+            req.setMessage(message)
+            req.setAutoEscape(true)
 
             this.sendGroupMsg(req)
         }
