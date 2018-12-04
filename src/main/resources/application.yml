@@ -22,9 +22,9 @@ secretary:
     token: Mgep4rV49rM8Jf
     # 用于jira&gitlab webhooks消息发送
     # 工作群/讨论组id 1575716762
-    groupId: 859973622
+    groupId: 1575716762
     # 群类型 discuss/group
-    groupType: group
+    groupType: discuss
   # 茉莉机器人配置
   itpk:
     url: http://i.itpk.cn
