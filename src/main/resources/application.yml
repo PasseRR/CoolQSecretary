@@ -18,13 +18,27 @@ secretary:
   cool:
     # 消息发送地址
     url: http://192.168.2.86:5700
+    # 消息token
+    token: Mgep4rV49rM8Jf
     # 用于jira&gitlab webhooks消息发送
-    # 工作群/讨论组id
-    groupId: 1575716762
+    # 工作群/讨论组id 1575716762
+    groupId: 859973622
     # 群类型 discuss/group
-    groupType: discuss
+    groupType: group
   # 茉莉机器人配置
   itpk:
     url: http://i.itpk.cn
     apiKey: f5c89b45e875434b4be5d1bd54266db6
     apiSecret: 3xj9lxqied51
+  # jira用户名和qq关系
+  jira:
+    Admin: 412810549
+    ying.huang: 410571470
+    xiaoling.gou: 1579231853
+    xin.yang: 1786370596
+    hai.xie: 304560216
+    fuwei.liu: 1021901278
+    peng.tao: 240098498
+    kai.liu: 1186578324
+    yiming.liu: 530265498
+    weibo.liu: 804912547

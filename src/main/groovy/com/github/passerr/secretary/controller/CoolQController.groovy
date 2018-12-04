@@ -34,6 +34,7 @@ class CoolQController {
     @PostMapping
     def receive(HttpServletRequest request) {
         String json = request.getReader().lines().collect(Collectors.joining("\n"))
+        log.debug(json)
         def type = this.gson.fromJson(json, TypeReq.class)
         switch (type.getPostType()) {
             case "message":

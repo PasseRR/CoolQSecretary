@@ -2,12 +2,13 @@ package com.github.passerr.secretary.config
 
 import com.github.passerr.secretary.api.CoolQApi
 import com.github.passerr.secretary.api.ItpkApi
+import com.google.gson.Gson
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
 /**
  * retrofit配置
  * @author xiehai
@@ -20,10 +21,12 @@ class RetrofitConfig {
     String coolQUrl
     @Value("\${secretary.itpk.url}")
     String itpkUrl
+    @Autowired
+    Gson gson
 
     @Bean
     Retrofit cool() {
-        new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
+        new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(this.gson))
                               .baseUrl(this.coolQUrl)
                               .build()
     }
