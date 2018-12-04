@@ -14,9 +14,17 @@ spring:
     field-naming-policy: lower_case_with_underscores
 
 secretary:
-  # 用于jira&gitlab webhooks消息发送
-  # 工作群/讨论组id
-  groupId: 1575716762
-  # 群类型 discuss/group
-  groupType: discuss
-
+  # 酷Q配置
+  cool:
+    # 消息发送地址
+    url: http://192.168.2.86:5700
+    # 用于jira&gitlab webhooks消息发送
+    # 工作群/讨论组id
+    groupId: 1575716762
+    # 群类型 discuss/group
+    groupType: discuss
+  # 茉莉机器人配置
+  itpk:
+    url: http://i.itpk.cn
+    apiKey: f5c89b45e875434b4be5d1bd54266db6
+    apiSecret: 3xj9lxqied51

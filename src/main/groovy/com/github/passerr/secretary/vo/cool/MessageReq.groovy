@@ -9,7 +9,7 @@ import groovy.transform.Canonical
  * @Copyright ( c ) tellyes tech. inc. co.,ltd
  */
 @Canonical
-abstract class MessageVo {
+abstract class MessageReq {
     /**
      * 消息id
      */
@@ -40,6 +40,17 @@ abstract class MessageVo {
      * @return true/false
      */
     abstract boolean needReply()
+
+    /**
+     * 获得消息
+     * @return
+     */
+    String getLegalMessage() {
+        // 如果包含@我 自动替换掉@我为空
+        return this.includeAtMe() ?
+            this.rawMessage.replaceAll(String.format("\\[CQ:at,qq=%d\\] ", this.selfId), "") :
+            this.message
+    }
 
     /**
      * 消息是否在@我

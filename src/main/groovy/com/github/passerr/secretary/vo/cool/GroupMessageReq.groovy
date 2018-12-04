@@ -1,16 +1,20 @@
 package com.github.passerr.secretary.vo.cool
 
 /**
- * 讨论组消息
+ * 群消息
  * @author xiehai
  * @date 2018/12/04 16:21
  * @Copyright ( c ) tellyes tech. inc. co.,ltd
  */
-class DiscussMessageVo extends MessageVo {
+class GroupMessageReq extends MessageReq {
     /**
-     * 讨论组id
+     * 群id
      */
-    Long discussId
+    Long groupId
+    /**
+     * 消息子类型
+     */
+    String subType
 
     @Override
     boolean needReply() {

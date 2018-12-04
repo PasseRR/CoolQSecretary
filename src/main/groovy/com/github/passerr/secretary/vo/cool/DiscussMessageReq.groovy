@@ -1,19 +1,19 @@
 package com.github.passerr.secretary.vo.cool
 
 /**
- * 私聊消息
+ * 讨论组消息
  * @author xiehai
- * @date 2018/12/04 16:07
+ * @date 2018/12/04 16:21
  * @Copyright ( c ) tellyes tech. inc. co.,ltd
  */
-class PrivateMessageVo extends MessageVo {
+class DiscussMessageReq extends MessageReq {
     /**
-     * 消息子类型
+     * 讨论组id
      */
-    String subType
+    Long discussId
+
     @Override
     boolean needReply() {
-        // 私人消息都要回复
-        return true
+        return super.includeAtMe()
     }
 }

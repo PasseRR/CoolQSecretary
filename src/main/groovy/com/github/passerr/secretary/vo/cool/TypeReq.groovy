@@ -9,7 +9,7 @@ import groovy.transform.Canonical
  * @Copyright ( c ) tellyes tech. inc. co.,ltd
  */
 @Canonical
-class TypeVo {
+class TypeReq {
     /**
      * 上报类型
      */
