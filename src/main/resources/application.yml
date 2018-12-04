@@ -1,0 +1,22 @@
+server:
+  # web端口
+  port: 6666
+
+logging:
+  level:
+    org.springframework.*: info
+    org.apache.http.*: error
+    org.hibernate.*: error
+    com.github.*: debug
+
+spring:
+  gson:
+    field-naming-policy: lower_case_with_underscores
+
+secretary:
+  # 用于jira&gitlab webhooks消息发送
+  # 工作群/讨论组id
+  groupId: 1575716762
+  # 群类型 discuss/group
+  groupType: discuss
+
