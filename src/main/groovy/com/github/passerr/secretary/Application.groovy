@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
  */
 @SpringBootApplication
 class Application {
-    static void main(String[] agrs) {
+    static void main(agrs) {
         SpringApplication.run(Application.class, agrs)
     }
 }
