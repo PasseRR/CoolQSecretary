@@ -67,10 +67,19 @@ class SendMessageComponent {
         }
     }
 
+    /**
+     * qq @指定用户
+     * @param key jira帐号
+     * @return CQ码
+     */
     private String atUserPrefix(String key) {
         return String.format("[CQ:at,qq=%s] ", this.group.get(key))
     }
 
+    /**
+     * 酷Q消息发送token
+     * @return token
+     */
     private String header() {
         return String.format("Token %s", this.token)
     }
