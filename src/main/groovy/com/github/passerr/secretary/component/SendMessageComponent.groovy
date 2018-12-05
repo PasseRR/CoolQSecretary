@@ -1,8 +1,7 @@
 package com.github.passerr.secretary.component
 
 import com.github.passerr.secretary.api.CoolQApi
-import com.github.passerr.secretary.vo.cool.SendDiscussMessageReq
-import com.github.passerr.secretary.vo.cool.SendGroupMessageReq
+import com.github.passerr.secretary.vo.cool.SendAllMessageReq
 import com.google.gson.Gson
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
@@ -39,21 +38,12 @@ class SendMessageComponent {
      * @param message 消息内容
      */
     void sendJiraMsg(String key, String message) {
-        if (this.groupType == "discuss") {
-            SendDiscussMessageReq req = new SendDiscussMessageReq()
-            req.setDiscussId(this.groupId)
-            req.setMessage(this.atUserPrefix(key) + message)
-            req.setAutoEscape(false)
+        SendAllMessageReq req = new SendAllMessageReq()
+        req.setId(this.groupType, this.groupId)
+        req.setMessage(Optional.ofNullable(this.atUserPrefix(key)).orElse("") + message)
+        req.setAutoEscape(false)
 
-            this.sendDiscussMsg(req)
-        } else {
-            SendGroupMessageReq req = new SendGroupMessageReq()
-            req.setGroupId(this.groupId)
-            req.setMessage(this.atUserPrefix(key) + message)
-            req.setAutoEscape(false)
-
-            this.sendGroupMsg(req)
-        }
+        this.sendMsg(req)
     }
 
     /**
@@ -61,36 +51,16 @@ class SendMessageComponent {
      * @param message 消息内容
      */
     void sendGitlabMsg(String message) {
-        if (this.groupType == "discuss") {
-            SendDiscussMessageReq req = new SendDiscussMessageReq()
-            req.setDiscussId(this.groupId)
-            req.setMessage(message)
-            req.setAutoEscape(true)
-
-            this.sendDiscussMsg(req)
-        } else {
-            SendGroupMessageReq req = new SendGroupMessageReq()
-            req.setGroupId(this.groupId)
-            req.setMessage(message)
-            req.setAutoEscape(true)
-
-            this.sendGroupMsg(req)
-        }
+        SendAllMessageReq req = new SendAllMessageReq()
+        req.setId(this.groupType, this.groupId)
+        req.setMessage(message)
+        req.setAutoEscape(true)
+        this.sendMsg(req)
     }
 
-    private void sendGroupMsg(SendGroupMessageReq req) {
+    private void sendMsg(SendAllMessageReq req) {
         try {
-            log.debug(this.gson.toJson(req))
-            def execute = this.coolQApi.sendGroupMsg(this.header(), req).execute()
-            log.debug(this.gson.toJson(execute.body()))
-        } catch (Exception e) {
-            log.debug(e.getMessage(), e)
-        }
-    }
-
-    private void sendDiscussMsg(SendDiscussMessageReq req) {
-        try {
-            def execute = this.coolQApi.sendDiscussMsg(this.header(), req).execute()
+            def execute = this.coolQApi.sendMsg(this.header(), req).execute()
             log.debug(this.gson.toJson(execute.body()))
         } catch (Exception e) {
             log.debug(e.getMessage(), e)

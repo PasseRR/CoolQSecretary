@@ -1,6 +1,7 @@
 package com.github.passerr.secretary.api
 
 import com.github.passerr.secretary.vo.cool.CoolResp
+import com.github.passerr.secretary.vo.cool.SendAllMessageReq
 import com.github.passerr.secretary.vo.cool.SendDiscussMessageReq
 import com.github.passerr.secretary.vo.cool.SendGroupMessageReq
 import com.github.passerr.secretary.vo.cool.SendPrivateMessageReq
@@ -19,8 +20,9 @@ import retrofit2.http.POST
 interface CoolQApi {
     /**
      * 群消息发送
-     * @param req 请求体
-     * @return 消息编号
+     * @param header token
+     * @param req 消息内容
+     * @return 应答
      */
     @POST("/send_group_msg")
     @Headers("Content-Type:application/json")
@@ -28,8 +30,9 @@ interface CoolQApi {
 
     /**
      * 讨论组消息发送
-     * @param req 请求体
-     * @return 消息编号
+     * @param header token
+     * @param req 消息内容
+     * @return 应答
      */
     @POST("/send_discuss_msg")
     @Headers("Content-Type:application/json")
@@ -37,10 +40,21 @@ interface CoolQApi {
 
     /**
      * 私人消息发送
-     * @param req 请求体
-     * @return 消息编号
+     * @param header token
+     * @param req 消息内容
+     * @return 应答
      */
     @POST("/send_private_msg")
     @Headers("Content-Type:application/json")
     Call<CoolResp> sendPrivateMsg(@Header("Authorization") String header, @Body SendPrivateMessageReq req)
+
+    /**
+     * 发送消息
+     * @param header token
+     * @param req 消息内容
+     * @return 应答
+     */
+    @POST("/send_msg")
+    @Headers("Content-Type:application/json")
+    Call<CoolResp> sendMsg(@Header("Authorization") String header, @Body SendAllMessageReq req)
 }
