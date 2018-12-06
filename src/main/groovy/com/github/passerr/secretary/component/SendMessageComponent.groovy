@@ -39,9 +39,11 @@ class SendMessageComponent {
      */
     void sendJiraMsg(String key, String message) {
         SendAllMessageReq req = new SendAllMessageReq()
-        req.setId(this.groupType, this.groupId)
-        req.setMessage(Optional.ofNullable(this.atUserPrefix(key)).orElse("") + message)
-        req.setAutoEscape(false)
+        req.with {
+            setId(this.groupType, this.groupId)
+            setMessage((this.atUserPrefix(key) ?: "") + message)
+            setAutoEscape(false)
+        }
 
         this.sendMsg(req)
     }
@@ -52,9 +54,12 @@ class SendMessageComponent {
      */
     void sendGitlabMsg(String message) {
         SendAllMessageReq req = new SendAllMessageReq()
-        req.setId(this.groupType, this.groupId)
-        req.setMessage(message)
-        req.setAutoEscape(true)
+        req.with {
+            setId(this.groupType, this.groupId)
+            setMessage(message)
+            setAutoEscape(true)
+        }
+
         this.sendMsg(req)
     }
 
@@ -63,7 +68,7 @@ class SendMessageComponent {
             def execute = this.coolQApi.sendMsg(this.header(), req).execute()
             log.debug(this.gson.toJson(execute.body()))
         } catch (Exception e) {
-            log.debug(e.getMessage(), e)
+            log.error(e.getMessage(), e)
         }
     }
 
@@ -73,7 +78,7 @@ class SendMessageComponent {
      * @return CQ码
      */
     private String atUserPrefix(String key) {
-        return String.format("[CQ:at,qq=%s] ", this.group.get(key))
+        String.format("[CQ:at,qq=%s] ", this.group.get(key))
     }
 
     /**
@@ -81,6 +86,6 @@ class SendMessageComponent {
      * @return token
      */
     private String header() {
-        return String.format("Token %s", this.token)
+        String.format("Token %s", this.token)
     }
 }
