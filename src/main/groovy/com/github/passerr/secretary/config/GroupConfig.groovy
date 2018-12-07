@@ -13,8 +13,18 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 class GroupConfig {
     @Bean
-    @ConfigurationProperties(prefix = "secretary.jira")
-    Map<String, String> group() {
+    @ConfigurationProperties(prefix = "secretary.jira.users")
+    Map<String, String> jira2qq() {
         return new HashMap<>()
+    }
+
+    @Bean
+    Map<String, String> qq2Jira() {
+        def map = [:]
+        this.jira2qq().each { key, value ->
+            map.put(value, key)
+        }
+
+        return map
     }
 }

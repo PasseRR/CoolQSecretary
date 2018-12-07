@@ -15,7 +15,7 @@ class SendMessageComponentSpec extends BaseSpec {
     @Autowired
     SendMessageComponent sendMessageComponent
 
-    def sendJiraMsg() {
+    def "send message from jira"() {
         when:
         this.sendMessageComponent.sendJiraMsg("hai.xie", "test 测试")
         then:

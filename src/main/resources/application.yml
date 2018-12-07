@@ -1,6 +1,6 @@
 server:
   # web端口
-  port: 6666
+  port: 6665
 
 logging:
   level:
@@ -30,15 +30,17 @@ secretary:
     url: http://i.itpk.cn
     apiKey: f5c89b45e875434b4be5d1bd54266db6
     apiSecret: 3xj9lxqied51
-  # jira用户名和qq关系
+  # jira配置
   jira:
-    Admin: 412810549
-    ying.huang: 410571470
-    xiaoling.gou: 1579231853
-    xin.yang: 1786370596
-    hai.xie: 304560216
-    fuwei.liu: 1021901278
-    peng.tao: 240098498
-    kai.liu: 1186578324
-    yiming.liu: 530265498
-    weibo.liu: 804912547
+    # 用户名和qq关系
+    users:
+      Admin: 412810549
+      ying.huang: 410571470
+      xiaoling.gou: 1579231853
+      xin.yang: 1786370596
+      hai.xie: 304560216
+      fuwei.liu: 1021901278
+      peng.tao: 240098498
+      kai.liu: 1186578324
+      yiming.liu: 530265498
+      weibo.liu: 804912547

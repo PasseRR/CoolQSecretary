@@ -17,7 +17,7 @@ class ItpkComponentSpec extends BaseSpec {
 
     def "idiom for dragon"() {
         when:
-        def resp = this.itpkComponent.message("@cy一往无前")
+        def resp = this.itpkComponent.phrase("一往无前")
         log.debug(resp)
         then:
         notThrown(Exception)
@@ -26,7 +26,7 @@ class ItpkComponentSpec extends BaseSpec {
 
     def "joke with itpk"() {
         when:
-        def joke = this.itpkComponent.message("说一个笑话")
+        def joke = this.itpkComponent.message("说个笑话")
         log.debug(joke)
         then:
         notThrown(Exception)

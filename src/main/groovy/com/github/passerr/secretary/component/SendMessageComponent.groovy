@@ -1,6 +1,7 @@
 package com.github.passerr.secretary.component
 
 import com.github.passerr.secretary.api.CoolQApi
+import com.github.passerr.secretary.vo.cool.MessageReq
 import com.github.passerr.secretary.vo.cool.SendAllMessageReq
 import com.google.gson.Gson
 import groovy.util.logging.Slf4j
@@ -20,6 +21,8 @@ import org.springframework.stereotype.Component
 class SendMessageComponent {
     @Autowired
     CoolQApi coolQApi
+    @Autowired
+    ItpkComponent itpkComponent
     @Value("\${secretary.cool.groupId}")
     Long groupId
     @Value("\${secretary.cool.groupType:discuss}")
@@ -27,8 +30,8 @@ class SendMessageComponent {
     @Value("\${secretary.cool.token}")
     String token
     @Autowired
-    @Qualifier("group")
-    Map<String, String> group
+    @Qualifier("jira2qq")
+    Map<String, String> jira2qq
     @Autowired
     Gson gson
 
@@ -63,6 +66,27 @@ class SendMessageComponent {
         this.sendMsg(req)
     }
 
+    /**
+     * 应答对话消息
+     * @param req 对话内容
+     * @return 应答对话
+     */
+    String responseMessage(MessageReq req) {
+        def message = req.getLegalMessage()
+        switch (message) {
+        // 成语接龙
+            case { message.length() == 4 }:
+                return this.itpkComponent.phrase(message)
+        // 普通对话
+            default:
+                return this.itpkComponent.message(message)
+        }
+    }
+
+    /**
+     * 消息直接发送
+     * @param req 报文内容
+     */
     private void sendMsg(SendAllMessageReq req) {
         try {
             def execute = this.coolQApi.sendMsg(this.header(), req).execute()
@@ -78,7 +102,7 @@ class SendMessageComponent {
      * @return CQ码
      */
     private String atUserPrefix(String key) {
-        String.format("[CQ:at,qq=%s] ", this.group.get(key))
+        String.format("[CQ:at,qq=%s] ", this.jira2qq.get(key))
     }
 
     /**

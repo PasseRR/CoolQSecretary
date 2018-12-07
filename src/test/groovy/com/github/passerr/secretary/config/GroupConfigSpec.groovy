@@ -4,6 +4,7 @@ import com.github.passerr.secretary.BaseSpec
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
+
 /**
  * {@link GroupConfig}单元测试
  * @author xiehai
@@ -13,13 +14,23 @@ import org.springframework.beans.factory.annotation.Qualifier
 @Slf4j
 class GroupConfigSpec extends BaseSpec {
     @Autowired
-    @Qualifier("group")
-    Map<String, String> group
+    @Qualifier("jira2qq")
+    Map<String, String> jira2qq
+    @Autowired
+    @Qualifier("qq2Jira")
+    Map<String, String> qq2Jira
 
-    def "test qqMap non null"() {
-        log.debug("{}", this.group)
+    def "test jira2qq non null"() {
+        log.debug("{}", this.jira2qq)
 
         expect:
-        this.group.size() > 0
+        this.jira2qq.size() > 0
+    }
+
+    def "test qq2Jira non null"() {
+        log.debug("{}", this.qq2Jira)
+
+        expect:
+        this.qq2Jira.size() > 0
     }
 }
