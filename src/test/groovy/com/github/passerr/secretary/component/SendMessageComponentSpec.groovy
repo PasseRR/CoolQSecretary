@@ -1,8 +1,7 @@
 package com.github.passerr.secretary.component
 
-import com.github.passerr.secretary.BaseTest
+import com.github.passerr.secretary.BaseSpec
 import groovy.util.logging.Slf4j
-import org.junit.Test
 import org.springframework.beans.factory.annotation.Autowired
 
 /**
@@ -12,12 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired
  * @Copyright ( c ) tellyes tech. inc. co.,ltd
  */
 @Slf4j
-class SendMessageComponentTest extends BaseTest {
+class SendMessageComponentSpec extends BaseSpec {
     @Autowired
     SendMessageComponent sendMessageComponent
 
-    @Test
-    void sendJiraMsg() {
+    def sendJiraMsg() {
+        when:
         this.sendMessageComponent.sendJiraMsg("hai.xie", "test 测试")
+        then:
+        notThrown(Exception)
     }
 }

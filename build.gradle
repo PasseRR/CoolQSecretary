@@ -4,8 +4,9 @@ version "1.0.0"
 buildscript {
     ext {
         springBootVersion = "2.1.1.RELEASE"
-        groovyVersion = "2.4.6"
+        groovyVersion = "2.5.2"
         retrofit2Version = "2.5.0"
+        spockSprignVersion = "1.2-groovy-2.5"
     }
     repositories {
         maven {
@@ -35,9 +36,10 @@ tasks.withType(GroovyCompile) {
 
 
 dependencies {
-    compile "org.codehaus.groovy:groovy-all:${groovyVersion}"
+    providedCompile "org.codehaus.groovy:groovy-all:${groovyVersion}"
     compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
     compile "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
     compile "com.squareup.retrofit2:converter-gson:${retrofit2Version}"
     testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+    testCompile "org.spockframework:spock-spring:${spockSprignVersion}"
 }
