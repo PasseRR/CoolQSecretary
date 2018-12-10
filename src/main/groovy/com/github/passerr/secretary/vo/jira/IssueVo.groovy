@@ -1,5 +1,7 @@
 package com.github.passerr.secretary.vo.jira
 
+import groovy.transform.PackageScope
+
 /**
  * jira任务实体
  * @author xiehai
@@ -28,5 +30,20 @@ class IssueVo {
 
     protected String getAtUser() {
         return this.fields.isDone() ? this.fields.getCreator() : this.fields.getAssignee()
+    }
+
+    /**
+     * 转为qq查询消息
+     * @return 问题概述
+     */
+    @PackageScope
+    String toQqMessage() {
+        return String.format(
+            "%s %s %s %s",
+            this.key,
+            this.fields.getIssueType().getName(),
+            this.fields.getStatus().getName(),
+            this.fields.getSummary()
+        )
     }
 }

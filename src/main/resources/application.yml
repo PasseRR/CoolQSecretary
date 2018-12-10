@@ -12,6 +12,9 @@ logging:
 spring:
   gson:
     field-naming-policy: lower_case_with_underscores
+  groovy:
+    template:
+      check-template-location: false
 
 secretary:
   # 酷Q配置
@@ -47,3 +50,8 @@ secretary:
       kai.liu: 1186578324
       yiming.liu: 530265498
       weibo.liu: 804912547
+    jql:
+      # 个人未完成任务
+      user_task: assignee = %s AND status not in (验证通过, 关闭, done, 完成) AND type not in (故障, 建议) ORDER BY createdDate DESC
+      # 个人未完成bug
+      user_bug: assignee = %s AND status not in (验证通过, 关闭, done, 完成) AND type in (故障, 建议) ORDER BY createdDate DESC

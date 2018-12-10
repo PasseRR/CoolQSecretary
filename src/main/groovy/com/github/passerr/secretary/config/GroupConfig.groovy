@@ -12,12 +12,20 @@ import org.springframework.context.annotation.Configuration
  */
 @Configuration
 class GroupConfig {
+    /**
+     * jira帐号与qq号一对一关系
+     * @return {@link Map&lt;String, String&gt;}
+     */
     @Bean
     @ConfigurationProperties(prefix = "secretary.jira.users")
     Map<String, String> jira2qq() {
         return new HashMap<>()
     }
 
+    /**
+     * qq号与jira帐号一对一关系
+     * @return {@link Map&lt;String, String&gt;}
+     */
     @Bean
     Map<String, String> qq2Jira() {
         def map = [:]

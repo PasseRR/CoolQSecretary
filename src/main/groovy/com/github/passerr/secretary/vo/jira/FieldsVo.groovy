@@ -28,6 +28,10 @@ class FieldsVo {
      * 任务状态
      */
     StatusVo status
+    /**
+     * 概述
+     */
+    String summary
 
     protected boolean isDone() {
         return Stream.of("3", "10002")

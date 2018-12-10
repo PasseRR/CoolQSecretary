@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 
+import static com.github.passerr.secretary.enums.JiraCommand.*
+
 /**
  * 消息发送组件
  * @author xiehai
@@ -23,6 +25,8 @@ class SendMessageComponent {
     CoolQApi coolQApi
     @Autowired
     ItpkComponent itpkComponent
+    @Autowired
+    JiraComponent jiraComponent
     @Value("\${secretary.cool.groupId}")
     Long groupId
     @Value("\${secretary.cool.groupType:discuss}")
@@ -74,12 +78,26 @@ class SendMessageComponent {
     String responseMessage(MessageReq req) {
         def message = req.getLegalMessage()
         switch (message) {
+        // 查询jira用户未完成的任务列表
+            case ["我的任务", "task"]:
+                return this.jiraComponent.userTask(req.getUserId())
+        // 查询jira用户未完成bug
+            case ["我的缺陷", "bug"]:
+                return this.jiraComponent.userBug(req.getUserId())
+        // 查询备注
+            case ~/^${REMARK_CN.getCommand()} \w+-\d+$/:
+            case ~/^${REMARK_EN.getCommand()} \w+-\d+$/:
+                return "功能开发中"
+        // 完成任务/bug
+            case ~/^${DONE_CN.getCommand()} \w+-\d+$/:
+            case ~/^${DONE_EN.getCommand()} \w+-\d+$/:
+                return "功能开发中"
         // 成语接龙
             case { message.length() == 4 }:
                 return this.itpkComponent.phrase(message)
         // 普通对话
             default:
-                return this.itpkComponent.message(message)
+                return this.itpkComponent.chat(message)
         }
     }
 
@@ -87,7 +105,7 @@ class SendMessageComponent {
      * 消息直接发送
      * @param req 报文内容
      */
-    private void sendMsg(SendAllMessageReq req) {
+    protected void sendMsg(SendAllMessageReq req) {
         try {
             def execute = this.coolQApi.sendMsg(this.header(), req).execute()
             log.debug(this.gson.toJson(execute.body()))
@@ -102,7 +120,7 @@ class SendMessageComponent {
      * @return CQ码
      */
     private String atUserPrefix(String key) {
-        String.format("[CQ:at,qq=%s] ", this.jira2qq.get(key))
+        String.format("[CQ:at,qq=%s] ", this.jira2qq[key])
     }
 
     /**

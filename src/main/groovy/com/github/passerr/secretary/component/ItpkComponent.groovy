@@ -33,7 +33,7 @@ class ItpkComponent {
      * @param question 问题
      * @return 应答
      */
-    String message(String question) {
+    String chat(String question) {
         try {
             def response = this.itpkApi.question(this.apiKey, this.apiSecret, question).execute()
             def message = response.body().string()
@@ -43,7 +43,8 @@ class ItpkComponent {
             }
 
             return message
-        } catch (Exception ignore) {
+        } catch (Exception e) {
+            log.error(e.getMessage(), e)
             return "网络出问题了!"
         }
     }
@@ -54,7 +55,7 @@ class ItpkComponent {
      * @return 应答成语
      */
     String phrase(String question) {
-        def resp = this.message("@cy" + question)
-        return resp.length() == 4 ? resp : this.message(question)
+        def resp = this.chat("@cy" + question)
+        return resp.length() == 4 ? resp : this.chat(question)
     }
 }
