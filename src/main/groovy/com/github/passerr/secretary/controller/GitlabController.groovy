@@ -31,7 +31,7 @@ class GitlabController {
     void gitlab(HttpServletRequest request) {
         String json = request.getReader().lines().collect(Collectors.joining("\n"))
         log.debug(json)
-        def gitlabVo = this.gson.fromJson(json, GitlabVo.class)
+        def gitlabVo = this.gson.fromJson(json, GitlabVo)
         this.sendMessageComponent.sendGitlabMsg(gitlabVo.message())
     }
 }

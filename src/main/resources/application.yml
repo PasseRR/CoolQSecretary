@@ -32,6 +32,9 @@ secretary:
     apiSecret: 3xj9lxqied51
   # jira配置
   jira:
+    # jira url
+    url: http://192.168.2.10:8088
+    token: aGFpLnhpZToxMjM0NTY
     # 用户名和qq关系
     users:
       Admin: 412810549

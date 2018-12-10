@@ -38,7 +38,7 @@ class ItpkComponent {
             def response = this.itpkApi.question(this.apiKey, this.apiSecret, question).execute()
             def message = response.body().string()
             if (message.startsWith("{") && message.endsWith("}")) {
-                def jokeVo = this.gson.fromJson(message, JokeVo.class)
+                def jokeVo = this.gson.fromJson(message, JokeVo)
                 return jokeVo.getContent()
             }
 

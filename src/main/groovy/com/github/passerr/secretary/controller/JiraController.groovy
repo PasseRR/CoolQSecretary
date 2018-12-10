@@ -31,7 +31,7 @@ class JiraController {
     void jira(HttpServletRequest request) {
         String json = request.getReader().lines().collect(Collectors.joining("\n"))
         log.debug(json)
-        def jiraVo = this.gson.fromJson(json, JiraVo.class)
+        def jiraVo = this.gson.fromJson(json, JiraVo)
         this.sendMessageComponent.sendJiraMsg(jiraVo.user(), jiraVo.message())
     }
 }

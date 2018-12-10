@@ -32,22 +32,22 @@ class CoolQController {
     def receive(HttpServletRequest request) {
         String json = request.getReader().lines().collect(Collectors.joining("\n"))
         log.debug(json)
-        def type = this.gson.fromJson(json, TypeReq.class)
+        def type = this.gson.fromJson(json, TypeReq)
         switch (type.getPostType()) {
             case POST_TYPE_MESSAGE:
                 // 只处理私聊/群消息/讨论组消息
                 switch (type.getMessageType()) {
                     case MESSAGE_TYPE_PRIVATE:
-                        def req = this.gson.fromJson(json, PrivateMessageReq.class)
+                        def req = this.gson.fromJson(json, PrivateMessageReq)
                         return new MessageResp(this.sendMessageComponent.responseMessage(req))
                     case MESSAGE_TYPE_GROUP:
-                        def req = this.gson.fromJson(json, GroupMessageReq.class)
+                        def req = this.gson.fromJson(json, GroupMessageReq)
                         if (req.needReply()) {
                             return new MessageResp(this.sendMessageComponent.responseMessage(req))
                         }
                         break
                     case MESSAGE_TYPE_DISCUSS:
-                        def req = this.gson.fromJson(json, DiscussMessageReq.class)
+                        def req = this.gson.fromJson(json, DiscussMessageReq)
                         if (req.needReply()) {
                             return new MessageResp(this.sendMessageComponent.responseMessage(req))
                         }
