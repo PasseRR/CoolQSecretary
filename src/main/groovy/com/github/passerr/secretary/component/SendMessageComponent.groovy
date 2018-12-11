@@ -92,7 +92,7 @@ class SendMessageComponent {
         // 完成任务/bug
             case ~/^${DONE_CN.getCommand()} \w+-\d+$/:
             case ~/^${DONE_EN.getCommand()} \w+-\d+$/:
-                return "功能开发中"
+                return "功能开发中..."
         // 成语接龙
             case { message.length() == 4 }:
                 return this.itpkComponent.phrase(message)

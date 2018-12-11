@@ -40,9 +40,9 @@ class IssueVo {
     @PackageScope
     String toQqMessage() {
         return String.format(
-            "%s %s %s %s",
-            this.key,
+            "%s【%s】 %s %s",
             this.fields.getIssueType().getName(),
+            this.key,
             this.fields.getStatus().getName(),
             this.fields.getSummary()
         )
