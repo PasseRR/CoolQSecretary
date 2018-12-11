@@ -86,8 +86,9 @@ class SendMessageComponent {
                 return this.jiraComponent.userBug(req.getUserId())
         // 查询备注
             case ~/^${REMARK_CN.getCommand()} \w+-\d+$/:
+                return this.jiraComponent.issueComment(REMARK_CN.getIssueKey(message))
             case ~/^${REMARK_EN.getCommand()} \w+-\d+$/:
-                return "功能开发中"
+                return this.jiraComponent.issueComment(REMARK_EN.getIssueKey(message))
         // 完成任务/bug
             case ~/^${DONE_CN.getCommand()} \w+-\d+$/:
             case ~/^${DONE_EN.getCommand()} \w+-\d+$/:

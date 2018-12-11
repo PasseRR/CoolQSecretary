@@ -32,4 +32,13 @@ class JiraComponentSpec extends BaseSpec {
         notThrown(Exception)
         bug != null
     }
+
+    def "search issue comments"(){
+        when:
+        def comments = this.jiraComponent.issueComment("EDUADMIN-1958")
+        log.debug(comments)
+        then:
+        notThrown(Exception)
+        comments != null
+    }
 }

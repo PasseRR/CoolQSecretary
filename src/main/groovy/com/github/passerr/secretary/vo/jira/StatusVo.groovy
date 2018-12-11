@@ -1,5 +1,7 @@
 package com.github.passerr.secretary.vo.jira
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * 任务状态vo
  * @author xiehai
@@ -9,5 +11,8 @@ package com.github.passerr.secretary.vo.jira
 class StatusVo {
     String id
     String name
+    @SerializedName("iconUrl")
     String iconUrl
+    @SerializedName("statusCategory")
+    StatusCategoryVo statusCategory
 }

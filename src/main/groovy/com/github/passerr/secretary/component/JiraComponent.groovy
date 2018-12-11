@@ -55,6 +55,43 @@ class JiraComponent {
     }
 
     /**
+     * 查询任务的备注
+     * @param key 任务key
+     * @return 备注列表信息
+     */
+    String issueComment(String key) {
+        this.jiraApi.searchComments(this.token(), key)
+            .execute()
+            .body()
+            .toQqMessage(key)
+    }
+
+    /**
+     * 任务完成
+     * @param userKey 用户key
+     * @param issueKey 任务key
+     * @return
+     */
+    String done(String userKey, String issueKey) {
+        def body = this.jiraApi.getIssue(this.token(), issueKey)
+                       .execute()
+                       .body()
+        // 经办人校验
+        if (body.getFields().getAssignee().getKey() != userKey) {
+            return "该${body.getFields().getIssueType().getName()}经办人不是你"
+        }
+
+        // 已完成校验
+        if (body.getFields().isDone()) {
+            return "该${body.getFields().getIssueType().getName()}已经完成"
+        }
+
+        // 更新任务
+
+        return null
+    }
+
+    /**
      * jira api接口token
      * @return token
      */

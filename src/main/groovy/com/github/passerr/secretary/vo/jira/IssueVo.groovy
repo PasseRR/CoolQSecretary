@@ -1,5 +1,6 @@
 package com.github.passerr.secretary.vo.jira
 
+import com.github.passerr.secretary.component.JiraConfigUtil
 import groovy.transform.PackageScope
 
 /**
@@ -45,5 +46,13 @@ class IssueVo {
             this.fields.getStatus().getName(),
             this.fields.getSummary()
         )
+    }
+
+    /**
+     * 是否是bug类型
+     * @return true/false
+     */
+    boolean isBug() {
+        return JiraConfigUtil.isBug(this.fields.getIssueType().getId())
     }
 }

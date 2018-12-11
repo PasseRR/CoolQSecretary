@@ -1,9 +1,12 @@
 package com.github.passerr.secretary.api
 
+import com.github.passerr.secretary.vo.jira.IssueVo
+import com.github.passerr.secretary.vo.jira.SearchCommentVo
 import com.github.passerr.secretary.vo.jira.SearchResultVo
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
@@ -21,4 +24,22 @@ interface JiraApi {
      */
     @GET("/rest/api/2/search")
     Call<SearchResultVo> search(@Header("Authorization") String header, @Query("jql") String jql)
+
+    /**
+     * 根据问题key或id查询问题备注
+     * @param header token
+     * @param key issue key
+     * @return {@link SearchCommentVo}
+     */
+    @GET("/rest/api/2/issue/{issueIdOrKey}/comment")
+    Call<SearchCommentVo> searchComments(@Header("Authorization") String header, @Path("issueIdOrKey") String key)
+
+    /**
+     * 获取问题详情
+     * @param header token
+     * @param key issue key
+     * @return {@link IssueVo}
+     */
+    @GET("/rest/api/2/issue/{issueIdOrKey}")
+    Call<IssueVo> getIssue(@Header("Authorization") String header, @Path("issueIdOrKey") String key)
 }

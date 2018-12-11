@@ -34,7 +34,7 @@ class SearchResultVo {
      * @return 消息内容
      */
     String toQqMessage(String type){
-        return Optional.of(this.total)
+        return Optional.ofNullable(this.total)
             .filter({n -> n > 0})
             .map({n ->
                 StringBuilder sb = new StringBuilder("以下是你的${type}列表:\n")

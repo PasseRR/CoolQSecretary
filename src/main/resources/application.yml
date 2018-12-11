@@ -1,6 +1,6 @@
 server:
   # web端口
-  port: 6665
+  port: 6666
 
 logging:
   level:
@@ -50,6 +50,10 @@ secretary:
       kai.liu: 1186578324
       yiming.liu: 530265498
       weibo.liu: 804912547
+    # 为bug的issue类型
+    bugTypeIds: 10004,10005
+    # 开发完成节点包括任务及bug
+    doneTransitions: 3,10002
     jql:
       # 个人未完成任务
       user_task: assignee = %s AND status not in (验证通过, 关闭, done, 完成) AND type not in (故障, 建议) ORDER BY createdDate DESC

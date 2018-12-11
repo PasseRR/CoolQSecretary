@@ -1,8 +1,7 @@
 package com.github.passerr.secretary.vo.jira
 
+import com.github.passerr.secretary.component.JiraConfigUtil
 import com.google.gson.annotations.SerializedName
-
-import java.util.stream.Stream
 
 /**
  * jira任务字段实体
@@ -33,16 +32,11 @@ class FieldsVo {
      */
     String summary
 
-    protected boolean isDone() {
-        return Stream.of("3", "10002")
-                     .anyMatch(this.status.getId().&equals)
+    boolean isDone() {
+        return JiraConfigUtil.isDone(this.status.getStatusCategory().getId())
     }
 
     protected String getCreator() {
         return this.creator.getKey()
-    }
-
-    protected String getAssignee() {
-        return this.assignee.getKey()
     }
 }
