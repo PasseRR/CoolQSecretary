@@ -77,13 +77,13 @@ class JiraComponent {
                        .execute()
                        .body()
         // 经办人校验
-        if (body.getFields().getAssignee().getKey() != userKey) {
-            return "该${body.getFields().getIssueType().getName()}经办人不是你"
+        if (body.getFields()?.getAssignee()?.getKey() != userKey) {
+            return "${body?.getFields()?.getIssueType()?.getName() + issueKey}经办人不是你"
         }
 
         // 已完成校验
-        if (body.getFields().isDone()) {
-            return "该${body.getFields().getIssueType().getName()}已经完成"
+        if (body?.getFields()?.isDone()) {
+            return "${body?.getFields()?.getIssueType()?.getName() + issueKey}已经完成"
         }
 
         // 更新任务
