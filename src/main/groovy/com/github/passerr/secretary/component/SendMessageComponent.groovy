@@ -78,6 +78,9 @@ class SendMessageComponent {
     String responseMessage(MessageReq req) {
         def message = req.getLegalMessage()
         switch (message) {
+        // 查询jira用户未完成的问题列表
+            case ["我的问题", "issue"]:
+                return this.jiraComponent.userIssue(req.getUserId())
         // 查询jira用户未完成的任务列表
             case ["我的任务", "task"]:
                 return this.jiraComponent.userTask(req.getUserId())

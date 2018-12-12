@@ -24,6 +24,6 @@ enum JiraCommand {
      * @return 问题编号
      */
     String getIssueKey(String message) {
-        return message?.replace(this.command + " ", "")?.trim()
+        return message?.replace(this.command + " ", "")
     }
 }

@@ -25,10 +25,24 @@ class JiraComponent {
     Map<String, String> qq2Jira
     @Value("\${secretary.jira.token}")
     String token
+    @Value("\${secretary.jira.jql.user_issue}")
+    String userIssueJql
     @Value("\${secretary.jira.jql.user_task}")
     String userTaskJql
     @Value("\${secretary.jira.jql.user_bug}")
     String userBugJql
+
+    /**
+     * 查询用户未完成任务列表
+     * @param userId 用户qq
+     * @return 任务列表消息
+     */
+    String userIssue(Long userId) {
+        this.jiraApi.search(this.token(), String.format(this.userIssueJql, this.qq2Jira[userId as String]))
+            .execute()
+            .body()
+            .toQqMessage("问题")
+    }
 
     /**
      * 查询用户未完成任务列表
@@ -60,10 +74,16 @@ class JiraComponent {
      * @return 备注列表信息
      */
     String issueComment(String key) {
-        this.jiraApi.searchComments(this.token(), key)
-            .execute()
-            .body()
-            .toQqMessage(key)
+        def execute = this.jiraApi.getIssue(this.token(), key)
+                          .execute()
+        if (execute.code() != 200) {
+            return "${key}不存在"
+        }
+
+        return this.jiraApi.searchComments(this.token(), key)
+                   .execute()
+                   .body()
+                   .toQqMessage(key)
     }
 
     /**
@@ -73,9 +93,12 @@ class JiraComponent {
      * @return
      */
     String done(String userKey, String issueKey) {
-        def body = this.jiraApi.getIssue(this.token(), issueKey)
-                       .execute()
-                       .body()
+        def execute = this.jiraApi.getIssue(this.token(), issueKey)
+                          .execute()
+        if (execute.code() != 200) {
+            return "${issueKey}不存在"
+        }
+        def body = execute.body()
         // 经办人校验
         if (body.getFields().getAssigneeKey() != userKey) {
             return "${body?.getFields()?.getIssueType()?.getName() + issueKey}经办人不是你"
