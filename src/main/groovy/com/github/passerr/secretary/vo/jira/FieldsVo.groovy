@@ -39,4 +39,8 @@ class FieldsVo {
     protected String getCreator() {
         return this.creator.getKey()
     }
+
+    protected String getAssignee() {
+        return this.assignee.getKey()
+    }
 }
