@@ -30,7 +30,7 @@ class IssueVo {
     }
 
     protected String getAtUser() {
-        return this.fields.isDone() ? this.fields.getCreator() : this.fields.getAssignee()
+        return this.fields.isDone() ? this.fields.getCreatorKey() : this.fields.getAssigneeKey()
     }
 
     /**

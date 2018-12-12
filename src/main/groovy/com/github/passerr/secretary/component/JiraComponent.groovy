@@ -77,7 +77,7 @@ class JiraComponent {
                        .execute()
                        .body()
         // 经办人校验
-        if (body.getFields()?.getAssignee()?.getKey() != userKey) {
+        if (body.getFields().getAssigneeKey() != userKey) {
             return "${body?.getFields()?.getIssueType()?.getName() + issueKey}经办人不是你"
         }
 

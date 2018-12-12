@@ -36,11 +36,11 @@ class FieldsVo {
         return JiraConfigUtil.isDone(this.status.getStatusCategory().getId())
     }
 
-    protected String getCreator() {
+    String getCreatorKey() {
         return this.creator.getKey()
     }
 
-    protected String getAssignee() {
+    String getAssigneeKey() {
         return this.assignee.getKey()
     }
 }
