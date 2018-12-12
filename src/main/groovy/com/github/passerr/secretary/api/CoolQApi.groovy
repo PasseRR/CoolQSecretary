@@ -1,10 +1,6 @@
 package com.github.passerr.secretary.api
 
-import com.github.passerr.secretary.vo.cool.CoolResp
-import com.github.passerr.secretary.vo.cool.SendAllMessageReq
-import com.github.passerr.secretary.vo.cool.SendDiscussMessageReq
-import com.github.passerr.secretary.vo.cool.SendGroupMessageReq
-import com.github.passerr.secretary.vo.cool.SendPrivateMessageReq
+import com.github.passerr.secretary.vo.cool.*
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Header
@@ -57,4 +53,14 @@ interface CoolQApi {
     @POST("/send_msg")
     @Headers("Content-Type:application/json")
     Call<CoolResp> sendMsg(@Header("Authorization") String header, @Body SendAllMessageReq req)
+
+    /**
+     * 异步发送消息
+     * @param header token
+     * @param req 消息内容
+     * @return 应答
+     */
+    @POST("/send_msg_async")
+    @Headers("Content-Type:application/json")
+    Call<CoolResp> sendMsgAsync(@Header("Authorization") String header, @Body SendAllMessageReq req)
 }

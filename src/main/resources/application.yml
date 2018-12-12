@@ -10,11 +10,16 @@ logging:
     com.github.*: debug
 
 spring:
+  # gson属性驼峰转下划线
   gson:
     field-naming-policy: lower_case_with_underscores
   groovy:
     template:
       check-template-location: false
+  # json message converter优先使用
+  http:
+    converters:
+      preferred-json-mapper: gson
 
 secretary:
   # 酷Q配置

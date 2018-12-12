@@ -52,7 +52,7 @@ class SendMessageComponent {
             setAutoEscape(false)
         }
 
-        this.sendMsg(req)
+        this.sendMsgAsync(req)
     }
 
     /**
@@ -67,7 +67,7 @@ class SendMessageComponent {
             setAutoEscape(true)
         }
 
-        this.sendMsg(req)
+        this.sendMsgAsync(req)
     }
 
     /**
@@ -112,6 +112,19 @@ class SendMessageComponent {
     protected void sendMsg(SendAllMessageReq req) {
         try {
             def execute = this.coolQApi.sendMsg(this.header(), req).execute()
+            log.debug(this.gson.toJson(execute.body()))
+        } catch (Exception e) {
+            log.error(e.getMessage(), e)
+        }
+    }
+
+    /**
+     * 异步消息发送
+     * @param req 报文内容
+     */
+    protected void sendMsgAsync(SendAllMessageReq req) {
+        try {
+            def execute = this.coolQApi.sendMsgAsync(this.header(), req).execute()
             log.debug(this.gson.toJson(execute.body()))
         } catch (Exception e) {
             log.error(e.getMessage(), e)
