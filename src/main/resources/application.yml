@@ -35,7 +35,12 @@ secretary:
     groupType: discuss
   # 茉莉机器人配置
   itpk:
+    # 机器人对话服务器url
     url: http://i.itpk.cn
+    # 机器人设置服务器url
+    robot_url: http://www.itpk.cn
+    # 机器人设置用户名
+    email: xie__hai@126.com
     apiKey: f5c89b45e875434b4be5d1bd54266db6
     apiSecret: 3xj9lxqied51
   # jira配置

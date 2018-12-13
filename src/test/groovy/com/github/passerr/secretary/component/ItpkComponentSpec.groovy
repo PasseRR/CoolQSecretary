@@ -26,7 +26,7 @@ class ItpkComponentSpec extends BaseSpec {
 
     def "joke with itpk"() {
         when:
-        def joke = this.itpkComponent.message("说个笑话")
+        def joke = this.itpkComponent.chat("说个笑话")
         log.debug(joke)
         then:
         notThrown(Exception)

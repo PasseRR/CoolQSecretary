@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 
 /**
+ * jira自定义配置项
  * @author xiehai
  * @date 2018/12/11 10:14
  * @Copyright ( c ) tellyes tech. inc. co.,ltd
