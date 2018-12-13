@@ -1,6 +1,7 @@
 package com.github.passerr.secretary.component
 
 import com.github.passerr.secretary.api.JiraApi
+import com.github.passerr.secretary.vo.jira.IssueVo
 import groovy.transform.PackageScope
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
@@ -74,10 +75,9 @@ class JiraComponent {
      * @return 备注列表信息
      */
     String issueComment(String key) {
-        def execute = this.jiraApi.getIssue(this.token(), key)
-                          .execute()
-        if (execute.code() != 200) {
-            return "${key}不存在"
+        def issue = this.issue(key)
+        if (issue instanceof String) {
+            return issue
         }
 
         return this.jiraApi.searchComments(this.token(), key)
@@ -87,18 +87,42 @@ class JiraComponent {
     }
 
     /**
+     * 获得任务明细
+     * @param key
+     * @return
+     */
+    def issue(String key) {
+        def execute = this.jiraApi.getIssue(this.token(), key)
+                          .execute()
+        if (execute.code() != 200) {
+            return "${key}不存在" as String
+        }
+
+        execute.body()
+    }
+
+    /**
+     * 问题明细
+     * @param key 任务编号
+     * @return 问题明细消息
+     */
+    String issueDetail(String key) {
+        def issue = this.issue(key)
+        issue instanceof String ?: (issue as IssueVo).toDetailQqMessage()
+    }
+
+    /**
      * 任务完成
      * @param userKey 用户key
      * @param issueKey 任务key
      * @return
      */
     String done(String userKey, String issueKey) {
-        def execute = this.jiraApi.getIssue(this.token(), issueKey)
-                          .execute()
-        if (execute.code() != 200) {
-            return "${issueKey}不存在"
+        def issue = this.issue(issueKey)
+        if (issue instanceof String) {
+            return issue
         }
-        def body = execute.body()
+        def body = issue as IssueVo
         // 经办人校验
         if (body.getFields().getAssigneeKey() != userKey) {
             return "${body?.getFields()?.getIssueType()?.getName() + issueKey}经办人不是你"

@@ -57,6 +57,6 @@ class CommentVo {
      * @return 消息内容
      */
     String toQqMessage() {
-        return "${this.updateAuthor.getDisplayName()} ${this.body.replaceAll("\n\r", "\n")} ${this.getUpdated()}"
+        return "${this.updateAuthor.getDisplayName()} ${this.body.replaceAll("\r\n", "\n")} ${this.getUpdated()}"
     }
 }

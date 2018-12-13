@@ -1,6 +1,5 @@
 package com.github.passerr.secretary.vo.jira
 
-import com.github.passerr.secretary.component.JiraConfigUtil
 import groovy.transform.PackageScope
 
 /**
@@ -48,11 +47,13 @@ class IssueVo {
         )
     }
 
-    /**
-     * 是否是bug类型
-     * @return true/false
-     */
-    boolean isBug() {
-        return JiraConfigUtil.isBug(this.fields.getIssueType().getId())
+    String toDetailQqMessage() {
+        String.format(
+            "%s %s\n%s\n%s",
+            this.toQqMessage(),
+            this.fields.getAssignee() ? this.fields.getAssignee().getDisplayName() : "暂无经办人",
+            (this.fields.getDescription() ?: "暂无描述").replaceAll("\r\n", "\n"),
+            this.fields.toAttachmentQqMessage()
+        )
     }
 }

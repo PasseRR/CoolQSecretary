@@ -17,5 +17,6 @@ JIRA命令
     我的问题，issue\t\t查询jira所有未完成问题包括任务及bug e.g. 【issue】
     我的任务，task\t\t查询jira所有未完成任务 e.g. 【task】
     我的缺陷，bug\t\t查询jira所有未完成bug e.g. 【bug】
+    详情，detail\t\t查询问题详情 e.g. 【detail EDUADMIN-973】
     备注，remark\t\t查询问题备注 e.g. 【remark EDUADMIN-973】"""
 }

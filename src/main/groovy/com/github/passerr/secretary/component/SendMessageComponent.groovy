@@ -93,6 +93,11 @@ class SendMessageComponent {
         // 查询jira用户未完成bug
             case ["我的缺陷", "bug"]:
                 return this.jiraComponent.userBug(req.getUserId())
+        // 查询问题详情
+            case ~/^${JIRA_DETAIL_CN.getCommand()} \w+-\d+$/:
+                return this.jiraComponent.issueDetail(JIRA_DETAIL_CN.getOption(message))
+            case ~/^${JIRA_DETAIL_EN.getCommand()} \w+-\d+$/:
+                return this.jiraComponent.issueDetail(JIRA_DETAIL_EN.getOption(message))
         // 查询备注
             case ~/^${JIRA_REMARK_CN.getCommand()} \w+-\d+$/:
                 return this.jiraComponent.issueComment(JIRA_REMARK_CN.getOption(message))

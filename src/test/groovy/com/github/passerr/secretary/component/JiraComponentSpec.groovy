@@ -41,4 +41,13 @@ class JiraComponentSpec extends BaseSpec {
         notThrown(Exception)
         comments != null
     }
+
+    def "issue detail"() {
+        when:
+        def resp = this.jiraComponent.issueDetail("EDUADMIN-2577")
+        log.debug(resp)
+        then:
+        notThrown(Exception)
+        resp
+    }
 }

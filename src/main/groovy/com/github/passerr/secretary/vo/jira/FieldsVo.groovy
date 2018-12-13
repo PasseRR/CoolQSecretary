@@ -31,6 +31,14 @@ class FieldsVo {
      * 概述
      */
     String summary
+    /**
+     * 描述
+     */
+    String description
+    /**
+     * 附件列表
+     */
+    List<AttachmentVo> attachment
 
     boolean isDone() {
         return JiraConfigUtil.isDone(this.status.getStatusCategory().getId())
@@ -42,5 +50,16 @@ class FieldsVo {
 
     String getAssigneeKey() {
         return this.assignee.getKey()
+    }
+
+    String toAttachmentQqMessage() {
+        StringBuilder sb = new StringBuilder()
+        attachment?.eachWithIndex { AttachmentVo entry, int i ->
+            sb.append("附件${i + 1}. ")
+              .append(entry.getAttachmentUrl())
+              .append("\n")
+        }
+
+        sb.length() > 1 ? sb.substring(0, sb.length() - 1) : ""
     }
 }

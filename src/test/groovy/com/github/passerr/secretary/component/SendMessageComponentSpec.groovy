@@ -67,4 +67,14 @@ class SendMessageComponentSpec extends BaseSpec {
         then:
         notThrown(Exception)
     }
+
+    def "get issue detail"() {
+        when:
+        def message = this.sendMessageComponent.responseMessage(
+            new PrivateMessageReq(userId: 304560216, message: "detail EDUADMIN-2577", selfId: 2743046799)
+        )
+        log.debug(message)
+        then:
+        notThrown(Exception)
+    }
 }

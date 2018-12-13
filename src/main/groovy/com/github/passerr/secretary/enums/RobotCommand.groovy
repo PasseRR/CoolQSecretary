@@ -15,6 +15,8 @@ enum RobotCommand {
     ITPK_RANDOM_REPLY_EN("itpkrr"),
     JIRA_DONE_CN("完成"),
     JIRA_DONE_EN("done"),
+    JIRA_DETAIL_CN("详情"),
+    JIRA_DETAIL_EN("detail"),
     JIRA_REMARK_CN("备注"),
     JIRA_REMARK_EN("remark")
 
