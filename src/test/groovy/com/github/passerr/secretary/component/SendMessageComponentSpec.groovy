@@ -1,6 +1,7 @@
 package com.github.passerr.secretary.component
 
 import com.github.passerr.secretary.BaseSpec
+import com.github.passerr.secretary.vo.cool.PrivateMessageReq
 import com.github.passerr.secretary.vo.cool.SendAllMessageReq
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
@@ -26,6 +27,29 @@ class SendMessageComponentSpec extends BaseSpec {
     def "send private message"() {
         when:
         this.sendMessageComponent.sendMsg(new SendAllMessageReq(userId: 304560216, message: "test \ntest\n"))
+        then:
+        notThrown(Exception)
+    }
+
+    def "set robot password"() {
+        when:
+        def message = this.sendMessageComponent.responseMessage(
+            new PrivateMessageReq(userId: 304560216, message: "itpkpwd 1qaz@WSX", selfId: 2743046799)
+        )
+        log.debug(message)
+        then:
+        notThrown(Exception)
+    }
+
+    def "set question and answer"() {
+        when:
+        this.sendMessageComponent.responseMessage(
+            new PrivateMessageReq(userId: 304560216, message: "itpkpwd 1qaz@WSX", selfId: 2743046799)
+        )
+        def message = this.sendMessageComponent.responseMessage(
+            new PrivateMessageReq(userId: 304560216, message: "itpkqa 你是谁?|我是你爸!", selfId: 2743046799)
+        )
+        log.debug(message)
         then:
         notThrown(Exception)
     }

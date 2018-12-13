@@ -7,4 +7,5 @@ package com.github.passerr.secretary.vo.itpk
  */
 class ItpkSettingRespVo {
     Integer result
+    Integer success
 }

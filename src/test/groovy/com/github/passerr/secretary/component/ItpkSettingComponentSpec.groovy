@@ -38,4 +38,20 @@ class ItpkSettingComponentSpec extends BaseSpec {
         itpkSettingComponent.getCookie()
         itpkSettingComponent.getPassword()
     }
+
+    def "robot study"() {
+        when:
+        def resp = this.itpkSettingComponent.study("你好啊", "啊好你")
+        log.debug(resp)
+        then:
+        notThrown(Exception)
+
+        when:
+        resp = this.itpkSettingComponent.login("1qaz@WSX")
+        log.debug(resp)
+        resp = this.itpkSettingComponent.study("你好啊", "啊好你")
+        log.debug(resp)
+        then:
+        notThrown(Exception)
+    }
 }

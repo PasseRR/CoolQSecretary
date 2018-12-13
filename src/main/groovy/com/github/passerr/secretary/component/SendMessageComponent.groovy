@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 
-import static com.github.passerr.secretary.enums.JiraCommand.*
+import static com.github.passerr.secretary.enums.RobotCommand.*
 
 /**
  * 消息发送组件
@@ -25,6 +25,8 @@ class SendMessageComponent {
     CoolQApi coolQApi
     @Autowired
     ItpkComponent itpkComponent
+    @Autowired
+    ItpkSettingComponent itpkSettingComponent
     @Autowired
     JiraComponent jiraComponent
     @Value("\${secretary.cool.groupId}")
@@ -88,14 +90,24 @@ class SendMessageComponent {
             case ["我的缺陷", "bug"]:
                 return this.jiraComponent.userBug(req.getUserId())
         // 查询备注
-            case ~/^${REMARK_CN.getCommand()} \w+-\d+$/:
-                return this.jiraComponent.issueComment(REMARK_CN.getIssueKey(message))
-            case ~/^${REMARK_EN.getCommand()} \w+-\d+$/:
-                return this.jiraComponent.issueComment(REMARK_EN.getIssueKey(message))
+            case ~/^${JIRA_REMARK_CN.getCommand()} \w+-\d+$/:
+                return this.jiraComponent.issueComment(JIRA_REMARK_CN.getOption(message))
+            case ~/^${JIRA_REMARK_EN.getCommand()} \w+-\d+$/:
+                return this.jiraComponent.issueComment(JIRA_REMARK_EN.getOption(message))
         // 完成任务/bug
-            case ~/^${DONE_CN.getCommand()} \w+-\d+$/:
-            case ~/^${DONE_EN.getCommand()} \w+-\d+$/:
+            case ~/^${JIRA_DONE_CN.getCommand()} \w+-\d+$/:
+            case ~/^${JIRA_DONE_EN.getCommand()} \w+-\d+$/:
                 return "功能开发中..."
+        // itpk密码设置获取cookie
+            case ~/^${ITPK_PWD_CN.getCommand()} ([\s\S]+)$/:
+                return this.itpkSettingComponent.login(ITPK_PWD_CN.getOption(message))
+            case ~/^${ITPK_PWD_EN.getCommand()} ([\s\S]+)$/:
+                return this.itpkSettingComponent.login(ITPK_PWD_EN.getOption(message))
+        // 学习问答
+            case ~/^${ITPK_QA_CN.getCommand()} ([\s\S]+)\|([\s\S]+)$/:
+                return this.itpkSettingComponent.study(ITPK_QA_CN.getOption(message))
+            case ~/^${ITPK_QA_EN.getCommand()} ([\s\S]+)\|([\s\S]+)$/:
+                return this.itpkSettingComponent.study(ITPK_QA_EN.getOption(message))
         // 成语接龙
             case { message.length() == 4 }:
                 return this.itpkComponent.phrase(message)

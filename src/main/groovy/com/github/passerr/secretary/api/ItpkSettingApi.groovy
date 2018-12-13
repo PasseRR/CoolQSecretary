@@ -1,13 +1,8 @@
 package com.github.passerr.secretary.api
 
 import com.github.passerr.secretary.vo.itpk.ItpkSettingRespVo
-import okhttp3.ResponseBody
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.Headers
-import retrofit2.http.POST
-
+import retrofit2.http.*
 /**
  * 茉莉机器人设置api
  * @author xiehai
@@ -22,24 +17,20 @@ interface ItpkSettingApi {
      * @return {@link Call}
      */
     @POST("login.php")
-    @Headers([
-        "Content-Type: application/x-www-form-urlencoded",
-        "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) \
-Chrome/70.0.3538.110 Safari/537.36"
-    ])
+    @Headers("User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) \
+Chrome/70.0.3538.110 Safari/537.36")
     @FormUrlEncoded
-    Call<ItpkSettingRespVo> login(
-        @Field(value = "login_name", encoded = true) String name,
-        @Field(value = "login_pass", encoded = true) String password)
+    Call<ItpkSettingRespVo> login(@Field("login_name") String name, @Field("login_pass") String password)
 
     /**
      * 词组学习
-     * @param question 问题
-     * @param answer 回答
+     * @param ckq 问题
+     * @param ckr 回答
      * @return {@link Call}
      */
     @POST("ajax-ck-save.php")
-    @Headers(["Content-Type: application/x-www-form-urlencoded"])
+    @Headers("User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) \
+Chrome/70.0.3538.110 Safari/537.36")
     @FormUrlEncoded
-    Call<ResponseBody> study(@Field("ckq") String question, @Field("ckr") String answer)
+    Call<ItpkSettingRespVo> study(@Header("Cookie") String cookie, @Field("ckq") String ckq, @Field("ckr") String ckr)
 }

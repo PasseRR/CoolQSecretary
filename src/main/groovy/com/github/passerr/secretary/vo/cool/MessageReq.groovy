@@ -48,7 +48,7 @@ abstract class MessageReq {
     String getLegalMessage() {
         // 如果包含@我 自动替换掉@我为空
         return this.includeAtMe() ?
-            this.rawMessage.replaceAll(String.format("\\[CQ:at,qq=%d\\] ", this.selfId), "")?.trim() :
+            this.rawMessage?.replaceAll(String.format("\\[CQ:at,qq=%d\\] ", this.selfId), "")?.trim() :
             this.message?.trim()
     }
 
@@ -57,6 +57,6 @@ abstract class MessageReq {
      * @return true/false
      */
     protected boolean includeAtMe() {
-        return this.rawMessage.contains(String.format("[CQ:at,qq=%d]", this.selfId))
+        return this.rawMessage?.contains(String.format("[CQ:at,qq=%d]", this.selfId))
     }
 }

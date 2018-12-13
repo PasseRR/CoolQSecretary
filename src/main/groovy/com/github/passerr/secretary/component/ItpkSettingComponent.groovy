@@ -53,4 +53,20 @@ class ItpkSettingComponent {
                 return "未知错误"
         }
     }
+
+    /**
+     * 机器人学习问答
+     * @param question 问题
+     * @param answer 回答
+     * @return 是否学习成功
+     */
+    String study(String question, String answer) {
+        def body = this.itpkSettingApi.study(this.cookie, question, answer).execute().body()
+        return body.getSuccess() > 0 ? "我学会了哦!" : "你还没有设置密码!"
+    }
+
+    String study(String message) {
+        def index = message?.indexOf("|")
+        return this.study(message.substring(0, index), message.substring(index + 1, message.length()))
+    }
 }
