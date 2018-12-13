@@ -61,7 +61,6 @@ class RetrofitConfig {
     @Bean
     Retrofit itpkRobot() {
         new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(this.gson))
-                              .client(client())
                               .baseUrl(this.itpkRobotUrl)
                               .build()
     }
@@ -86,7 +85,7 @@ class RetrofitConfig {
         this.itpkRobot().create(ItpkSettingApi)
     }
 
-    private static def client() {
+    static def client() {
         new OkHttpClient.Builder().addInterceptor(new Interceptor() {
             @Override
             Response intercept(Interceptor.Chain chain) throws IOException {

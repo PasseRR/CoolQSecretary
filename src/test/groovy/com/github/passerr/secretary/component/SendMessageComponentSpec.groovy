@@ -53,4 +53,17 @@ class SendMessageComponentSpec extends BaseSpec {
         then:
         notThrown(Exception)
     }
+
+    def "set random reply"() {
+        when:
+        this.sendMessageComponent.responseMessage(
+            new PrivateMessageReq(userId: 304560216, message: "itpkpwd 1qaz@WSX", selfId: 2743046799)
+        )
+        def message = this.sendMessageComponent.responseMessage(
+            new PrivateMessageReq(userId: 304560216, message: "茉莉随机回复 你是谁?|我是你爸!", selfId: 2743046799)
+        )
+        log.debug(message)
+        then:
+        notThrown(Exception)
+    }
 }

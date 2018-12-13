@@ -62,11 +62,26 @@ class ItpkSettingComponent {
      */
     String study(String question, String answer) {
         def body = this.itpkSettingApi.study(this.cookie, question, answer).execute().body()
-        return body.getSuccess() > 0 ? "我学会了哦!" : "你还没有设置密码!"
+        return body.getSuccess() > 0 ? "我学会了哦!" : "你还没有设置茉莉密码!"
     }
 
+    /**
+     * 根据消息学习 问题与回答以|分隔
+     * @param message 消息内容
+     * @return 是否学习成功
+     */
     String study(String message) {
         def index = message?.indexOf("|")
         return this.study(message.substring(0, index), message.substring(index + 1, message.length()))
+    }
+
+    /**
+     * 新增一条随机回复
+     * @param message 回复内容
+     * @return 是否新增成功
+     */
+    String randomReply(String message) {
+        def body = this.itpkSettingApi.randomReply(this.cookie, message).execute().body()
+        return body.getSuccess() > 0 ? "我又多了一条无聊的回复!" : "你还没有设置茉莉密码!"
     }
 }

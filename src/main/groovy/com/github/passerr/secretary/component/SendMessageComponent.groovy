@@ -108,6 +108,11 @@ class SendMessageComponent {
                 return this.itpkSettingComponent.study(ITPK_QA_CN.getOption(message))
             case ~/^${ITPK_QA_EN.getCommand()} ([\s\S]+)\|([\s\S]+)$/:
                 return this.itpkSettingComponent.study(ITPK_QA_EN.getOption(message))
+        // 随机回答添加
+            case ~/^${ITPK_RANDOM_REPLY_CN.getCommand()} ([\s\S]+)$/:
+                return this.itpkSettingComponent.randomReply(ITPK_RANDOM_REPLY_CN.getOption(message))
+            case ~/^${ITPK_RANDOM_REPLY_EN.getCommand()} ([\s\S]+)$/:
+                return this.itpkSettingComponent.randomReply(ITPK_RANDOM_REPLY_EN.getOption(message))
         // 成语接龙
             case { message.length() == 4 }:
                 return this.itpkComponent.phrase(message)

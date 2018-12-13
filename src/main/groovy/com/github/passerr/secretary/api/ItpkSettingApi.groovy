@@ -3,6 +3,7 @@ package com.github.passerr.secretary.api
 import com.github.passerr.secretary.vo.itpk.ItpkSettingRespVo
 import retrofit2.Call
 import retrofit2.http.*
+
 /**
  * 茉莉机器人设置api
  * @author xiehai
@@ -24,6 +25,7 @@ Chrome/70.0.3538.110 Safari/537.36")
 
     /**
      * 词组学习
+     * @param cookie cookie
      * @param ckq 问题
      * @param ckr 回答
      * @return {@link Call}
@@ -33,4 +35,16 @@ Chrome/70.0.3538.110 Safari/537.36")
 Chrome/70.0.3538.110 Safari/537.36")
     @FormUrlEncoded
     Call<ItpkSettingRespVo> study(@Header("Cookie") String cookie, @Field("ckq") String ckq, @Field("ckr") String ckr)
+
+    /**
+     * 随机回复添加
+     * @param cookie cookie
+     * @param reply 随机回复内容
+     * @return {@link Call}
+     */
+    @POST("ajax-rr-save.php")
+    @Headers("User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) \
+Chrome/70.0.3538.110 Safari/537.36")
+    @FormUrlEncoded
+    Call<ItpkSettingRespVo> randomReply(@Header("Cookie") String cookie, @Field("reply") String reply)
 }

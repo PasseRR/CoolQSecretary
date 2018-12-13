@@ -54,4 +54,14 @@ class ItpkSettingComponentSpec extends BaseSpec {
         then:
         notThrown(Exception)
     }
+
+    def "robot random reply"() {
+        when:
+        def resp = this.itpkSettingComponent.login("1qaz@WSX")
+        log.debug(resp)
+        resp = this.itpkSettingComponent.randomReply("我们俩不在同一个频道")
+        log.debug(resp)
+        then:
+        notThrown(Exception)
+    }
 }
