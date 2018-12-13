@@ -1,6 +1,7 @@
 package com.github.passerr.secretary.component
 
 import com.github.passerr.secretary.BaseSpec
+import com.github.passerr.secretary.constants.HelpDoc
 import com.github.passerr.secretary.vo.cool.PrivateMessageReq
 import com.github.passerr.secretary.vo.cool.SendAllMessageReq
 import groovy.util.logging.Slf4j
@@ -26,7 +27,7 @@ class SendMessageComponentSpec extends BaseSpec {
 
     def "send private message"() {
         when:
-        this.sendMessageComponent.sendMsg(new SendAllMessageReq(userId: 304560216, message: "test \ntest\n"))
+        this.sendMessageComponent.sendMsg(new SendAllMessageReq(userId: 304560216, message: HelpDoc.DOC))
         then:
         notThrown(Exception)
     }

@@ -1,6 +1,7 @@
 package com.github.passerr.secretary.component
 
 import com.github.passerr.secretary.api.CoolQApi
+import com.github.passerr.secretary.constants.HelpDoc
 import com.github.passerr.secretary.vo.cool.MessageReq
 import com.github.passerr.secretary.vo.cool.SendAllMessageReq
 import com.google.gson.Gson
@@ -80,6 +81,9 @@ class SendMessageComponent {
     String responseMessage(MessageReq req) {
         def message = req.getLegalMessage()
         switch (message) {
+        // 帮助命令
+            case ["帮助", "help"]:
+                return HelpDoc.DOC
         // 查询jira用户未完成的问题列表
             case ["我的问题", "issue"]:
                 return this.jiraComponent.userIssue(req.getUserId())
