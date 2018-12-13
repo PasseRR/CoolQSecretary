@@ -62,7 +62,7 @@ class ItpkSettingComponent {
      */
     String study(String question, String answer) {
         def body = this.itpkSettingApi.study(this.cookie, question, answer).execute().body()
-        return body.getSuccess() > 0 ? "我学会了哦!" : "你还没有设置茉莉密码!"
+        return body.getSuccess() > 0 ? "我学会了哦!" : "快叫主人设置茉莉密码!"
     }
 
     /**
@@ -82,6 +82,6 @@ class ItpkSettingComponent {
      */
     String randomReply(String message) {
         def body = this.itpkSettingApi.randomReply(this.cookie, message).execute().body()
-        return body.getSuccess() > 0 ? "我又多了一条无聊的回复!" : "你还没有设置茉莉密码!"
+        return body.getSuccess() > 0 ? "我又多了一条无聊的回复!" : "快叫主人设置茉莉密码!"
     }
 }
