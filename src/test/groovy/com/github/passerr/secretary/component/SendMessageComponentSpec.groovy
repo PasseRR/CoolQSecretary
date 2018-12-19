@@ -6,7 +6,6 @@ import com.github.passerr.secretary.vo.cool.PrivateMessageReq
 import com.github.passerr.secretary.vo.cool.SendAllMessageReq
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
-
 /**
  * {@link SendMessageComponent}
  * @author xiehai
@@ -17,13 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired
 class SendMessageComponentSpec extends BaseSpec {
     @Autowired
     SendMessageComponent sendMessageComponent
-
-    def "send message from jira"() {
-        when:
-        this.sendMessageComponent.sendJiraMsg("hai.xie", "test 测试")
-        then:
-        notThrown(Exception)
-    }
 
     def "send private message"() {
         when:

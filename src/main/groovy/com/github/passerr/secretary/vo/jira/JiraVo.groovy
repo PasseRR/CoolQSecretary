@@ -34,7 +34,7 @@ class JiraVo {
         )
     }
 
-    String user() {
+    UserVo user() {
         return this.issue.getAtUser()
     }
 }

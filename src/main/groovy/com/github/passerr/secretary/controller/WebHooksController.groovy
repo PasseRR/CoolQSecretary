@@ -21,7 +21,7 @@ class WebHooksController {
 
     @PostMapping("/jira")
     void jira(@RequestBody JiraVo jiraVo) {
-        this.sendMessageComponent.sendJiraMsg(jiraVo.user(), jiraVo.message())
+        this.sendMessageComponent.sendJiraMsg(jiraVo)
     }
 
     @PostMapping("/gitlab")

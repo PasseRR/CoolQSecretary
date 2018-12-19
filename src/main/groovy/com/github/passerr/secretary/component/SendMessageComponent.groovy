@@ -4,6 +4,7 @@ import com.github.passerr.secretary.api.CoolQApi
 import com.github.passerr.secretary.constants.HelpDoc
 import com.github.passerr.secretary.vo.cool.MessageReq
 import com.github.passerr.secretary.vo.cool.SendAllMessageReq
+import com.github.passerr.secretary.vo.jira.JiraVo
 import com.google.gson.Gson
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
@@ -47,11 +48,16 @@ class SendMessageComponent {
      * @param key jira帐号
      * @param message 消息内容
      */
-    void sendJiraMsg(String key, String message) {
+    void sendJiraMsg(JiraVo jiraVo) {
         SendAllMessageReq req = new SendAllMessageReq()
         req.with {
             setId(this.groupType, this.groupId)
-            setMessage((this.atUserPrefix(key) ?: "") + message)
+            // 若jira对应帐号qq不存在 不加@直接通知
+            setMessage(
+                Optional.ofNullable(this.jira2qq[jiraVo?.user()?.getKey()])
+                        .map({ s -> this.atUserPrefix(s) })
+                        .orElse("【${jiraVo?.user()?.getDisplayName()}】 ") + jiraVo.message()
+            )
             setAutoEscape(false)
         }
 
@@ -162,8 +168,8 @@ class SendMessageComponent {
      * @param key jira帐号
      * @return CQ码
      */
-    private String atUserPrefix(String key) {
-        String.format("[CQ:at,qq=%s] ", this.jira2qq[key])
+    private String atUserPrefix(String qq) {
+        String.format("[CQ:at,qq=%s] ", qq)
     }
 
     /**

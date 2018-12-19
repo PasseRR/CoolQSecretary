@@ -13,8 +13,4 @@ class UserVo {
     String key
     @SerializedName("displayName")
     String displayName
-
-    static main(agrs) {
-        println "hello world"
-    }
 }

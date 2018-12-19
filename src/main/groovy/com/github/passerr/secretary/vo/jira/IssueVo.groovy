@@ -28,8 +28,8 @@ class IssueVo {
         return String.format("请前往【%s】查看", this.getIssueUrl())
     }
 
-    protected String getAtUser() {
-        return this.fields.isDone() ? this.fields.getCreatorKey() : this.fields.getAssigneeKey()
+    protected UserVo getAtUser() {
+        return this.fields.isDone() ? this.fields.getCreator() : this.fields.getAssignee()
     }
 
     /**
