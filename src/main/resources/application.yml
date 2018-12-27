@@ -43,6 +43,13 @@ secretary:
     email: xie__hai@126.com
     apiKey: f5c89b45e875434b4be5d1bd54266db6
     apiSecret: 3xj9lxqied51
+  # 百度api配置
+  baidu:
+    # 翻译api
+    translate:
+      url: http://api.fanyi.baidu.com
+      appId: 20181227000252527
+      appSecret: JgnhGnO21vHqBu25hGbz
   # jira配置
   jira:
     # jira url

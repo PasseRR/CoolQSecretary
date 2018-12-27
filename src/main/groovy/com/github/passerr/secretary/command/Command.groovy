@@ -60,15 +60,4 @@ abstract class Command<T> {
      * @return String
      */
     abstract String execute(MessageReq messageReq)
-
-    static String stripSshPrefix(String gitUrl) {
-        def match = (gitUrl =~ /remark (\w+-\d+)/)
-        println match.matches()
-        return match.group(1)
-    }
-
-    static void main(String... args) {
-        def gitUrl = "remark EMS-123"
-        println(stripSshPrefix(gitUrl))
-    }
 }

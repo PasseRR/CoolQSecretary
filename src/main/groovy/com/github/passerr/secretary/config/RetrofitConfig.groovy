@@ -1,9 +1,6 @@
 package com.github.passerr.secretary.config
 
-import com.github.passerr.secretary.api.CoolQApi
-import com.github.passerr.secretary.api.ItpkApi
-import com.github.passerr.secretary.api.ItpkSettingApi
-import com.github.passerr.secretary.api.JiraApi
+import com.github.passerr.secretary.api.*
 import com.google.gson.Gson
 import groovy.util.logging.Slf4j
 import okhttp3.Interceptor
@@ -36,6 +33,8 @@ class RetrofitConfig {
     String itpkRobotUrl
     @Value("\${secretary.jira.url}")
     String jiraUrl
+    @Value("\${secretary.baidu.translate.url}")
+    String translateUrl
     @Autowired
     Gson gson
 
@@ -66,6 +65,13 @@ class RetrofitConfig {
     }
 
     @Bean
+    Retrofit translate() {
+        new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(this.gson))
+                              .baseUrl(this.translateUrl)
+                              .build()
+    }
+
+    @Bean
     CoolQApi coolQApi() {
         this.cool().create(CoolQApi)
     }
@@ -83,6 +89,11 @@ class RetrofitConfig {
     @Bean
     ItpkSettingApi itpkSettingApi() {
         this.itpkRobot().create(ItpkSettingApi)
+    }
+
+    @Bean
+    BaiduTranslateApi baiduTranslateApi() {
+        this.translate().create(BaiduTranslateApi)
     }
 
     static def client() {

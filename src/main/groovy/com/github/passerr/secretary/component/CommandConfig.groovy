@@ -7,6 +7,7 @@ import com.github.passerr.secretary.command.itpk.RandomReplyCmd
 import com.github.passerr.secretary.command.jira.*
 import com.github.passerr.secretary.command.robot.HelpCmd
 import com.github.passerr.secretary.command.robot.PhraseCmd
+import com.github.passerr.secretary.command.robot.TranslateCmd
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -25,6 +26,8 @@ class CommandConfig {
     JiraComponent jiraComponent
     @Autowired
     ItpkComponent itpkComponent
+    @Autowired
+    BaiduComponent baiduComponent
 
     @Bean
     List<Command<?>> commands() {
@@ -42,7 +45,9 @@ class CommandConfig {
             new QuestionAnswerCmd(this.itpkSettingComponent.&study),
             new RandomReplyCmd(this.itpkSettingComponent.&randomReply),
             // 聊天命令
-            new PhraseCmd(this.itpkComponent.&phrase)
+            new PhraseCmd(this.itpkComponent.&phrase),
+            // 翻译命令
+            new TranslateCmd(this.baiduComponent.&translate)
         )
     }
 }
