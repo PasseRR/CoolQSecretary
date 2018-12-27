@@ -1,8 +1,6 @@
 package com.github.passerr.secretary.component
 
 import com.github.passerr.secretary.api.CoolQApi
-import com.github.passerr.secretary.constants.HelpDoc
-import com.github.passerr.secretary.vo.cool.MessageReq
 import com.github.passerr.secretary.vo.cool.SendAllMessageReq
 import com.github.passerr.secretary.vo.jira.JiraVo
 import com.google.gson.Gson
@@ -11,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
-
-import static com.github.passerr.secretary.enums.RobotCommand.*
 
 /**
  * 消息发送组件
@@ -25,12 +21,6 @@ import static com.github.passerr.secretary.enums.RobotCommand.*
 class SendMessageComponent {
     @Autowired
     CoolQApi coolQApi
-    @Autowired
-    ItpkComponent itpkComponent
-    @Autowired
-    ItpkSettingComponent itpkSettingComponent
-    @Autowired
-    JiraComponent jiraComponent
     @Value("\${secretary.cool.groupId}")
     Long groupId
     @Value("\${secretary.cool.groupType:discuss}")
@@ -55,7 +45,7 @@ class SendMessageComponent {
             // 若jira对应帐号qq不存在 不加@直接通知
             setMessage(
                 Optional.ofNullable(this.jira2qq[jiraVo?.user()?.getKey()])
-                        .map({ s -> this.atUserPrefix(s) })
+                        .map({ s -> atUserPrefix(s) })
                         .orElse("【${jiraVo?.user()?.getDisplayName()}】 ") + jiraVo.message()
             )
             setAutoEscape(false)
@@ -77,64 +67,6 @@ class SendMessageComponent {
         }
 
         this.sendMsgAsync(req)
-    }
-
-    /**
-     * 应答对话消息
-     * @param req 对话内容
-     * @return 应答对话
-     */
-    String responseMessage(MessageReq req) {
-        def message = req.getLegalMessage()
-        switch (message) {
-        // 帮助命令
-            case ["帮助", "help"]:
-                return HelpDoc.DOC
-        // 查询jira用户未完成的问题列表
-            case ["我的问题", "issue"]:
-                return this.jiraComponent.userIssue(req.getUserId())
-        // 查询jira用户未完成的任务列表
-            case ["我的任务", "task"]:
-                return this.jiraComponent.userTask(req.getUserId())
-        // 查询jira用户未完成bug
-            case ["我的缺陷", "bug"]:
-                return this.jiraComponent.userBug(req.getUserId())
-        // 查询问题详情
-            case ~/^${JIRA_DETAIL_CN.getCommand()} \w+-\d+$/:
-                return this.jiraComponent.issueDetail(JIRA_DETAIL_CN.getOption(message))
-            case ~/^${JIRA_DETAIL_EN.getCommand()} \w+-\d+$/:
-                return this.jiraComponent.issueDetail(JIRA_DETAIL_EN.getOption(message))
-        // 查询备注
-            case ~/^${JIRA_REMARK_CN.getCommand()} \w+-\d+$/:
-                return this.jiraComponent.issueComment(JIRA_REMARK_CN.getOption(message))
-            case ~/^${JIRA_REMARK_EN.getCommand()} \w+-\d+$/:
-                return this.jiraComponent.issueComment(JIRA_REMARK_EN.getOption(message))
-        // 完成任务/bug
-            case ~/^${JIRA_DONE_CN.getCommand()} \w+-\d+$/:
-            case ~/^${JIRA_DONE_EN.getCommand()} \w+-\d+$/:
-                return "功能开发中..."
-        // itpk密码设置获取cookie
-            case ~/^${ITPK_PWD_CN.getCommand()} ([\s\S]+)$/:
-                return this.itpkSettingComponent.login(ITPK_PWD_CN.getOption(message))
-            case ~/^${ITPK_PWD_EN.getCommand()} ([\s\S]+)$/:
-                return this.itpkSettingComponent.login(ITPK_PWD_EN.getOption(message))
-        // 学习问答
-            case ~/^${ITPK_QA_CN.getCommand()} ([\s\S]+)\|([\s\S]+)$/:
-                return this.itpkSettingComponent.study(ITPK_QA_CN.getOption(message))
-            case ~/^${ITPK_QA_EN.getCommand()} ([\s\S]+)\|([\s\S]+)$/:
-                return this.itpkSettingComponent.study(ITPK_QA_EN.getOption(message))
-        // 随机回答添加
-            case ~/^${ITPK_RANDOM_REPLY_CN.getCommand()} ([\s\S]+)$/:
-                return this.itpkSettingComponent.randomReply(ITPK_RANDOM_REPLY_CN.getOption(message))
-            case ~/^${ITPK_RANDOM_REPLY_EN.getCommand()} ([\s\S]+)$/:
-                return this.itpkSettingComponent.randomReply(ITPK_RANDOM_REPLY_EN.getOption(message))
-        // 成语接龙
-            case { message.length() == 4 }:
-                return this.itpkComponent.phrase(message)
-        // 普通对话
-            default:
-                return this.itpkComponent.chat(message)
-        }
     }
 
     /**
@@ -168,7 +100,7 @@ class SendMessageComponent {
      * @param key jira帐号
      * @return CQ码
      */
-    private String atUserPrefix(String qq) {
+    private static String atUserPrefix(String qq) {
         String.format("[CQ:at,qq=%s] ", qq)
     }
 

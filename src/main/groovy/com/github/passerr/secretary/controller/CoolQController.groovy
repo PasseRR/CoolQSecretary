@@ -1,6 +1,6 @@
 package com.github.passerr.secretary.controller
 
-import com.github.passerr.secretary.component.SendMessageComponent
+import com.github.passerr.secretary.component.ResponseComponent
 import com.github.passerr.secretary.vo.cool.*
 import com.google.gson.Gson
 import groovy.util.logging.Slf4j
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest
 import java.util.stream.Collectors
 
 import static com.github.passerr.secretary.constants.CoolQConstants.*
+
 /**
  * 酷Q消息接收接口
  * @author xiehai
@@ -26,7 +27,7 @@ class CoolQController {
     @Autowired
     Gson gson
     @Autowired
-    SendMessageComponent sendMessageComponent
+    ResponseComponent responseComponent
 
     @PostMapping
     def receive(HttpServletRequest request) {
@@ -39,17 +40,17 @@ class CoolQController {
                 switch (type.getMessageType()) {
                     case MESSAGE_TYPE_PRIVATE:
                         def req = this.gson.fromJson(json, PrivateMessageReq)
-                        return new MessageResp(this.sendMessageComponent.responseMessage(req))
+                        return new MessageResp(this.responseComponent.response(req))
                     case MESSAGE_TYPE_GROUP:
                         def req = this.gson.fromJson(json, GroupMessageReq)
                         if (req.needReply()) {
-                            return new MessageResp(this.sendMessageComponent.responseMessage(req))
+                            return new MessageResp(this.responseComponent.response(req))
                         }
                         break
                     case MESSAGE_TYPE_DISCUSS:
                         def req = this.gson.fromJson(json, DiscussMessageReq)
                         if (req.needReply()) {
-                            return new MessageResp(this.sendMessageComponent.responseMessage(req))
+                            return new MessageResp(this.responseComponent.response(req))
                         }
                         break
                     default:

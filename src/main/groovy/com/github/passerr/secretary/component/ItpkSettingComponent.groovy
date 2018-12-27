@@ -2,6 +2,7 @@ package com.github.passerr.secretary.component
 
 import com.github.passerr.secretary.api.ItpkSettingApi
 import com.google.gson.Gson
+import groovy.transform.PackageScope
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component
  */
 @Component
 @Slf4j
+@PackageScope
 class ItpkSettingComponent {
     @Autowired
     ItpkSettingApi itpkSettingApi
