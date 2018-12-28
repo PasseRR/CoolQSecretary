@@ -25,8 +25,6 @@ class SendMessageComponent {
     Long groupId
     @Value("\${secretary.cool.groupType:discuss}")
     String groupType
-    @Value("\${secretary.cool.token}")
-    String token
     @Autowired
     @Qualifier("jira2qq")
     Map<String, String> jira2qq
@@ -75,7 +73,7 @@ class SendMessageComponent {
      */
     protected void sendMsg(SendAllMessageReq req) {
         try {
-            def execute = this.coolQApi.sendMsg(this.header(), req).execute()
+            def execute = this.coolQApi.sendMsg(req).execute()
             log.debug(this.gson.toJson(execute.body()))
         } catch (Exception e) {
             log.error(e.getMessage(), e)
@@ -88,7 +86,7 @@ class SendMessageComponent {
      */
     protected void sendMsgAsync(SendAllMessageReq req) {
         try {
-            def execute = this.coolQApi.sendMsgAsync(this.header(), req).execute()
+            def execute = this.coolQApi.sendMsgAsync(req).execute()
             log.debug(this.gson.toJson(execute.body()))
         } catch (Exception e) {
             log.error(e.getMessage(), e)
@@ -102,13 +100,5 @@ class SendMessageComponent {
      */
     private static String atUserPrefix(String qq) {
         String.format("[CQ:at,qq=%s] ", qq)
-    }
-
-    /**
-     * 酷Q消息发送token
-     * @return token
-     */
-    private String header() {
-        String.format("Token %s", this.token)
     }
 }

@@ -24,8 +24,6 @@ class JiraComponent {
     @Autowired
     @Qualifier("qq2Jira")
     Map<String, String> qq2Jira
-    @Value("\${secretary.jira.token}")
-    String token
     @Value("\${secretary.jira.jql.user_issue}")
     String userIssueJql
     @Value("\${secretary.jira.jql.user_task}")
@@ -39,7 +37,7 @@ class JiraComponent {
      * @return 任务列表消息
      */
     String userIssue(Long userId) {
-        this.jiraApi.search(this.token(), String.format(this.userIssueJql, this.qq2Jira[userId as String]))
+        this.jiraApi.search(String.format(this.userIssueJql, this.qq2Jira[userId as String]))
             .execute()
             .body()
             .toQqMessage("问题")
@@ -51,7 +49,7 @@ class JiraComponent {
      * @return 任务列表消息
      */
     String userTask(Long userId) {
-        this.jiraApi.search(this.token(), String.format(this.userTaskJql, this.qq2Jira[userId as String]))
+        this.jiraApi.search(String.format(this.userTaskJql, this.qq2Jira[userId as String]))
             .execute()
             .body()
             .toQqMessage("任务")
@@ -63,7 +61,7 @@ class JiraComponent {
      * @return 任务列表消息
      */
     String userBug(Long userId) {
-        this.jiraApi.search(this.token(), String.format(this.userBugJql, this.qq2Jira[userId as String]))
+        this.jiraApi.search(String.format(this.userBugJql, this.qq2Jira[userId as String]))
             .execute()
             .body()
             .toQqMessage("BUG")
@@ -80,7 +78,7 @@ class JiraComponent {
             return issue
         }
 
-        return this.jiraApi.searchComments(this.token(), key)
+        return this.jiraApi.searchComments(key)
                    .execute()
                    .body()
                    .toQqMessage(key)
@@ -92,7 +90,7 @@ class JiraComponent {
      * @return
      */
     def issue(String key) {
-        def execute = this.jiraApi.getIssue(this.token(), key)
+        def execute = this.jiraApi.getIssue(key)
                           .execute()
         if (execute.code() != 200) {
             return "${key}不存在" as String
@@ -136,13 +134,5 @@ class JiraComponent {
         // 更新任务
 
         return null
-    }
-
-    /**
-     * jira api接口token
-     * @return token
-     */
-    private String token() {
-        return String.format("Basic %s", this.token)
     }
 }

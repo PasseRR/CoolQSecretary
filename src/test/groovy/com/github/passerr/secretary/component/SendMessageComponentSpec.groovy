@@ -16,9 +16,16 @@ class SendMessageComponentSpec extends BaseSpec {
     @Autowired
     SendMessageComponent sendMessageComponent
 
-    def "send private message"() {
+    def "send sync private message"() {
         when:
-        this.sendMessageComponent.sendMsg(new SendAllMessageReq(userId: 304560216, message: "test private message"))
+        this.sendMessageComponent.sendMsg(new SendAllMessageReq(userId: 304560216, message: "test sync message"))
+        then:
+        notThrown(Exception)
+    }
+
+    def "send async private message"() {
+        when:
+        this.sendMessageComponent.sendMsgAsync(new SendAllMessageReq(userId: 304560216, message: "test async message"))
         then:
         notThrown(Exception)
     }
