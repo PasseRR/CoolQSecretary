@@ -52,7 +52,7 @@ class RetrofitConfig {
                 Request request = chain.request()
                                        .newBuilder()
                                        .addHeader("Content-Type", "application/json")
-                                       .addHeader("Authorization", "Token ${coolQToken}")
+                                       .addHeader("Authorization", "Token ${RetrofitConfig.this.coolQToken}")
                                        .build()
 
                 log.debug("${request.headers()}")
@@ -84,7 +84,7 @@ class RetrofitConfig {
                 // 添加授权token
                 Request request = chain.request()
                                        .newBuilder()
-                                       .addHeader("Authorization", "Basic ${jiraToken}")
+                                       .addHeader("Authorization", "Basic ${RetrofitConfig.this.jiraToken}")
                                        .build()
 
                 log.debug("${request.headers()}")

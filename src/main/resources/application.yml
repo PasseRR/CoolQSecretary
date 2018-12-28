@@ -7,7 +7,7 @@ logging:
     org.springframework.*: info
     org.apache.http.*: error
     org.hibernate.*: error
-    com.github.*: debug
+    com.github.*: info
 
 spring:
   # gson属性驼峰转下划线
