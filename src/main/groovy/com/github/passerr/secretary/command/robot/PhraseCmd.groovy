@@ -24,12 +24,12 @@ class PhraseCmd extends Command<String> {
 
     @Override
     protected Matcher matchEn(String message) {
-        message =~ /[\u4E00-\u9FA5]{4}/
+        // 只支持中文四字成语
+        this.matchCn(message)
     }
 
     @Override
     String execute(MessageReq messageReq) {
-        // 匹配4个汉字
         super.executor.apply(messageReq.getLegalMessage())
     }
 }

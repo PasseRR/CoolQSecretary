@@ -29,6 +29,6 @@ class TaskCmd extends Command<Long> {
 
     @Override
     String execute(MessageReq messageReq) {
-        return super.executor.apply(messageReq.getUserId())
+        super.executor.apply(messageReq.getUserId())
     }
 }
