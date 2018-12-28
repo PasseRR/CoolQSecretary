@@ -24,13 +24,12 @@ class ResponseComponent {
      * @return 应答对话
      */
     String response(MessageReq req) {
-        String message = req.getLegalMessage()
-        // 命令匹配
-        Command<?> command = this.commands.stream()
-                                 .filter({ it -> it.match(message) })
-                                 .findFirst()
-                                 .orElse(null)
-        // 根据命令应答
-        command ? command.execute(req) : this.itpkComponent.chat(message)
+        this.commands.stream()
+            .filter({ it -> it.match(req.getLegalMessage()) })
+            .findFirst()
+        // 若命令匹配按照命令响应
+            .map({ it -> it.execute(req) })
+        // 未匹配到命令 按照机器人对话响应
+            .orElse(this.itpkComponent.chat(req.getLegalMessage()))
     }
 }
