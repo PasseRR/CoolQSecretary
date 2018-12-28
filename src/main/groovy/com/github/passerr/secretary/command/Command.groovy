@@ -17,6 +17,10 @@ abstract class Command<T> {
      */
     protected Function<T, String> executor
 
+    Command() {
+
+    }
+
     Command(Function<T, String> function) {
         this.executor = function
     }

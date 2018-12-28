@@ -15,12 +15,12 @@ import java.util.stream.Collectors
  * @Copyright ( c ) tellyes tech. inc. co.,ltd
  */
 class TranslateCmd extends Command<TranslateReq> {
-    private static final List<String> SUPPORT_EN =
+    static final List<String> SUPPORT_EN =
         Arrays.asList(
             "zh", "en", "yue", "wyw", "jp", "kor", "fra", "spa", "th", "ara", "ru", "pt", "de", "it",
             "el", "nl", "pl", "bul", "est", "dan", "fin", "cs", "rom", "slo", "swe", "hu", "cht", "vie"
         )
-    private static final List<String> SUPPORT_CN =
+    static final List<String> SUPPORT_CN =
         Arrays.asList(
             "中文", "英语", "粤语", "文言文", "日语", "韩语", "法语", "西班牙语", "泰语", "阿拉伯语", "俄语", "葡萄牙语",
             "德语", "意大利语", "希腊语", "荷兰语", "波兰语", "保加利亚语", "爱沙尼亚语", "丹麦语", "芬兰语", "捷克语",

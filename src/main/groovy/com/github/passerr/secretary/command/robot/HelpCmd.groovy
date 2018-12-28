@@ -3,7 +3,6 @@ package com.github.passerr.secretary.command.robot
 import com.github.passerr.secretary.command.Command
 import com.github.passerr.secretary.vo.cool.MessageReq
 
-import java.util.function.Function
 import java.util.regex.Matcher
 
 /**
@@ -12,11 +11,7 @@ import java.util.regex.Matcher
  * @date 2018/12/27 13:43
  * @Copyright ( c ) tellyes tech. inc. co.,ltd
  */
-class HelpCmd extends Command<Void> {
-    HelpCmd(Function<Void, String> function) {
-        super(function)
-    }
-
+class HelpCmd extends Command {
     @Override
     protected Matcher matchCn(String message) {
         message =~ /帮助/
@@ -35,6 +30,8 @@ class HelpCmd extends Command<Void> {
     帮助，help            查看帮助文档 e.g. 【help】
     茉莉问答，itpkqa       机器人对话学习，问题和回答用'|'分隔 e.g. 【itpkqa 1+1=?|2】
     茉莉随机回复，itpkrr   机器人随机回复，当机器人不知道怎么回答时，可能会这样回复 e.g. 【itpkrr 你说啥?】
+    翻译帮助，thelp        查看翻译支持语言
+    中文 hello，zh hello   翻译命令 e.g. 【中文 hello】【en 你是谁】
 JIRA命令
     我的问题，issue        查询jira所有未完成问题包括任务及bug e.g. 【issue】
     我的任务，task         查询jira所有未完成任务 e.g. 【task】

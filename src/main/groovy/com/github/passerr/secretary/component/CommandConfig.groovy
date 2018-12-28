@@ -8,6 +8,7 @@ import com.github.passerr.secretary.command.jira.*
 import com.github.passerr.secretary.command.robot.HelpCmd
 import com.github.passerr.secretary.command.robot.PhraseCmd
 import com.github.passerr.secretary.command.robot.TranslateCmd
+import com.github.passerr.secretary.command.robot.TranslateHelpCmd
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -33,7 +34,7 @@ class CommandConfig {
     List<Command<?>> commands() {
         Arrays.asList(
             // 帮助命令
-            new HelpCmd(null),
+            new HelpCmd(),
             // jira 命令
             new IssueCmd(this.jiraComponent.&userIssue),
             new TaskCmd(this.jiraComponent.&userTask),
@@ -44,10 +45,12 @@ class CommandConfig {
             new PasswordCmd(this.itpkSettingComponent.&login),
             new QuestionAnswerCmd(this.itpkSettingComponent.&study),
             new RandomReplyCmd(this.itpkSettingComponent.&randomReply),
-            // 聊天命令
-            new PhraseCmd(this.itpkComponent.&phrase),
             // 翻译命令
-            new TranslateCmd(this.baiduComponent.&translate)
+            new TranslateCmd(this.baiduComponent.&translate),
+            // 帮助命令
+            new TranslateHelpCmd(),
+            // 聊天命令
+            new PhraseCmd(this.itpkComponent.&phrase)
         )
     }
 }
