@@ -35,11 +35,18 @@ abstract class Command<T> {
     }
 
     /**
+     * 命令应答
+     * @param messageReq 消息体
+     * @return String
+     */
+    abstract String execute(MessageReq messageReq)
+
+    /**
      * 获得命令参数
      * @param message 消息内容
      * @return 处理后的消息 默认不处理消息
      */
-    String parameter(String message) {
+    protected String parameter(String message) {
         def en = this.matchEn(message)
         en.matches() ? en.group(1) : this.matchCn(message).group(1)
     }
@@ -57,11 +64,4 @@ abstract class Command<T> {
      * @return true/false
      */
     protected abstract Matcher matchEn(String message)
-
-    /**
-     * 命令应答
-     * @param messageReq 消息体
-     * @return String
-     */
-    abstract String execute(MessageReq messageReq)
 }
