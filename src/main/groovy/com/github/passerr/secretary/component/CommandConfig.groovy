@@ -29,6 +29,8 @@ class CommandConfig {
     ItpkComponent itpkComponent
     @Autowired
     BaiduComponent baiduComponent
+    @Autowired
+    WorkGroupComponent workGroupComponent
 
     @Bean
     List<Command<?>> commands() {
@@ -41,6 +43,7 @@ class CommandConfig {
             new BugCmd(this.jiraComponent.&userBug),
             new DetailCmd(this.jiraComponent.&issueDetail),
             new RemarkCmd(this.jiraComponent.&issueComment),
+            new ReleaseIssueCmd(this.workGroupComponent.&release),
             // 机器人设置命令
             new PasswordCmd(this.itpkSettingComponent.&login),
             new QuestionAnswerCmd(this.itpkSettingComponent.&study),

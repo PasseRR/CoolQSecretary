@@ -2,6 +2,7 @@ package com.github.passerr.secretary.component
 
 import com.github.passerr.secretary.api.CoolQApi
 import com.github.passerr.secretary.vo.cool.SendAllMessageReq
+import com.github.passerr.secretary.vo.jira.IssueVo
 import com.github.passerr.secretary.vo.jira.JiraVo
 import com.google.gson.Gson
 import groovy.util.logging.Slf4j
@@ -62,6 +63,42 @@ class SendMessageComponent {
             setId(this.groupType, this.groupId)
             setMessage(message)
             setAutoEscape(true)
+        }
+
+        this.sendMsgAsync(req)
+    }
+
+    /**
+     * 发送jira问题发布
+     * @param issueVos 问题列表
+     * @param releaseTime 发布时间
+     * @param env 发布环境
+     */
+    void sendJiraReleaseMsg(List<IssueVo> issueVos, String releaseTime, String env) {
+        SendAllMessageReq req = new SendAllMessageReq()
+
+        // 解析问题列表
+        StringBuilder issue = new StringBuilder()
+        Set<String> users = new HashSet<>()
+        issueVos.eachWithIndex { IssueVo entry, int i ->
+            // 存储需要@的人
+            def s = this.jira2qq[entry.fields.getCreatorKey()]
+            if (s) {
+                users.add(s)
+            }
+            issue.append("${i + 1}. 【${entry.key}】 ${entry.fields.summary}\n")
+        }
+        StringBuilder title = new StringBuilder()
+        users.each {
+            title.append("${atUserPrefix(it)}")
+        }
+        title.append("${releaseTime}会进行${env}环境更新，解决问题如下：\n")
+        title.append(issue)
+
+        req.with {
+            setId(this.groupType, this.groupId)
+            setMessage(title.substring(0, title.length() - 1))
+            setAutoEscape(false)
         }
 
         this.sendMsgAsync(req)

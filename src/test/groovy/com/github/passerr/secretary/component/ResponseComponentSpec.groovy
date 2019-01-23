@@ -61,4 +61,15 @@ class ResponseComponentSpec extends BaseSpec {
         then:
         notThrown(Exception)
     }
+
+    def "jira release"() {
+        when:
+        def message = this.responseComponent.response(
+            new PrivateMessageReq(userId: 304560216, message: "release 2019/01/23 16:00 2019/01/23 17:00 阿里云 17:30",
+                                  selfId: 2743046799)
+        )
+        log.debug(message)
+        then:
+        notThrown(Exception)
+    }
 }
