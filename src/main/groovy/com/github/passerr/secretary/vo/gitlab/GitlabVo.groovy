@@ -46,9 +46,13 @@ class GitlabVo {
                             this.objectAttributes.id
                         )
                     case "running":
-                        return String.format("任务【#%s】正在执行!", this.objectAttributes.id)
+                        return String.format("任务【#%s】开始执行!", this.objectAttributes.id)
                     case "success":
-                        return String.format("任务【#%s】执行成功!", this.objectAttributes.id)
+                        return String.format(
+                            "任务【#%s】执行完成, 耗时%s!",
+                            this.objectAttributes.id,
+                            this.objectAttributes.cost()
+                        )
                     case "failed":
                         return String.format("任务【#%s】执行失败!", this.objectAttributes.id)
                     case "canceled":
