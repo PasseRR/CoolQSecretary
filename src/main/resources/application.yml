@@ -78,3 +78,7 @@ secretary:
       user_task: assignee = %s AND status not in (验证通过, 关闭, done, 完成) AND type not in (故障, 建议) ORDER BY createdDate DESC
       # 个人未完成bug
       user_bug: assignee = %s AND status not in (验证通过, 关闭, done, 完成) AND type in (故障, 建议) ORDER BY createdDate DESC
+  gitlab:
+    # jira url
+    url: http://192.168.2.20
+    token: PASfxcDM_a-4C-LNMH_K

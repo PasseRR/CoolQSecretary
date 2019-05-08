@@ -13,9 +13,8 @@ import org.springframework.stereotype.Component
 
 /**
  * 消息发送组件
- * @author xiehai
- * @date 2018/12/04 16:20
- * @Copyright ( c ) tellyes tech. inc. co.,ltd
+ * @author xiehai* @date 2018/12/04 16:20
+ * @Copyright (c) tellyes tech. inc. co.,ltd
  */
 @Component
 @Slf4j
@@ -31,6 +30,8 @@ class SendMessageComponent {
     Map<String, String> jira2qq
     @Autowired
     Gson gson
+    @Autowired
+    GitlabComponent gitlabComponent
 
     /**
      * 发送jira消息
@@ -66,6 +67,25 @@ class SendMessageComponent {
         }
 
         this.sendMsgAsync(req)
+    }
+
+    /**
+     * gitlab通知消息
+     * @param message 消息内容
+     * @param username gitlab用户名
+     */
+    void sendPrivateGitlabMessage(String message, String username) {
+        def qq = this.gitlabComponent.getUserQicq(username)
+        if (qq) {
+            SendAllMessageReq req = new SendAllMessageReq()
+            req.with {
+                setId("", qq)
+                setMessage(message)
+                setAutoEscape(true)
+            }
+
+            this.sendMsgAsync(req)
+        }
     }
 
     /**

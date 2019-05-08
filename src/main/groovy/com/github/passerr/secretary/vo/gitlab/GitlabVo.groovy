@@ -4,9 +4,8 @@ import groovy.util.logging.Slf4j
 
 /**
  * gitlab 钩子实体
- * @author xiehai
- * @date 2018/12/04 22:14
- * @Copyright ( c ) tellyes tech. inc. co.,ltd
+ * @author xiehai* @date 2018/12/04 22:14
+ * @Copyright (c) tellyes tech. inc. co.,ltd
  */
 @Slf4j
 class GitlabVo {
@@ -61,6 +60,10 @@ class GitlabVo {
                         log.debug("未知的pipeline状态:{}", this.objectAttributes.status)
                 }
         }
+    }
+
+    boolean isPipeline() {
+        this.objectKind == "pipeline"
     }
 
     private String getBranch() {

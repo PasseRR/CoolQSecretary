@@ -1,6 +1,12 @@
 package com.github.passerr.secretary.config
 
-import com.github.passerr.secretary.api.*
+
+import com.github.passerr.secretary.api.BaiduTranslateApi
+import com.github.passerr.secretary.api.CoolQApi
+import com.github.passerr.secretary.api.GitlabApi
+import com.github.passerr.secretary.api.ItpkApi
+import com.github.passerr.secretary.api.ItpkSettingApi
+import com.github.passerr.secretary.api.JiraApi
 import com.google.gson.Gson
 import groovy.util.logging.Slf4j
 import okhttp3.Interceptor
@@ -19,9 +25,8 @@ import java.nio.charset.Charset
 
 /**
  * retrofit配置
- * @author xiehai
- * @date 2018/12/04 16:44
- * @Copyright ( c ) tellyes tech. inc. co.,ltd
+ * @author xiehai* @date 2018/12/04 16:44
+ * @Copyright (c) tellyes tech. inc. co.,ltd
  */
 @Configuration
 @Slf4j
@@ -40,6 +45,10 @@ class RetrofitConfig {
     String jiraToken
     @Value("\${secretary.baidu.translate.url}")
     String translateUrl
+    @Value("\${secretary.gitlab.url}")
+    String gitlabUrl
+    @Value("\${secretary.gitlab.token}")
+    String gitlabToken
     @Autowired
     Gson gson
 
@@ -128,6 +137,40 @@ class RetrofitConfig {
     }
 
     @Bean
+    OkHttpClient gitlabHttpClient() {
+        new OkHttpClient.Builder().addInterceptor(new Interceptor() {
+            @Override
+            Response intercept(Interceptor.Chain chain) throws IOException {
+                // 添加授权token
+                Request request = chain.request()
+                                       .newBuilder()
+                                       .addHeader("Content-Type", "application/json")
+                                       .addHeader("Private-Token", RetrofitConfig.this.gitlabToken)
+                                       .build()
+
+                log.debug("${request.headers()}")
+                // post日志记录
+                if (request.body()) {
+                    Buffer buffer = new Buffer()
+                    request.body().writeTo(buffer)
+                    log.debug(buffer.readString(Charset.forName("UTF-8")))
+                }
+
+                chain.proceed(request)
+            }
+        }).build()
+    }
+
+    @Bean
+    Retrofit gitlab() {
+        new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(this.gson))
+                              .client(this.gitlabHttpClient())
+                              .baseUrl(this.gitlabUrl)
+                              .build()
+    }
+
+
+    @Bean
     CoolQApi coolQApi() {
         this.cool().create(CoolQApi)
     }
@@ -150,5 +193,10 @@ class RetrofitConfig {
     @Bean
     BaiduTranslateApi baiduTranslateApi() {
         this.translate().create(BaiduTranslateApi)
+    }
+
+    @Bean
+    GitlabApi gitlabApi() {
+        this.gitlab().create(GitlabApi)
     }
 }
