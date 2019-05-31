@@ -13,7 +13,7 @@ import java.util.regex.Matcher
  * @date 2019/01/23 16:59
  * @Copyright ( c ) tellyes tech. inc. co.,ltd
  */
-class ReleaseIssueCmd extends Command<String> {
+class ReleaseIssueCmd extends Command<ReleaseIssueVo> {
     ReleaseIssueCmd(Function<ReleaseIssueVo, String> function) {
         super(function)
     }
