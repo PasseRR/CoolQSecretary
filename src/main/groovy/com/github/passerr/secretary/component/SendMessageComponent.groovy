@@ -39,19 +39,18 @@ class SendMessageComponent {
      * @param message 消息内容
      */
     void sendJiraMsg(JiraVo jiraVo) {
-        SendAllMessageReq req = new SendAllMessageReq()
-        req.with {
-            setId(this.groupType, this.groupId)
-            // 若jira对应帐号qq不存在 不加@直接通知
-            setMessage(
-                Optional.ofNullable(this.jira2qq[jiraVo?.user()?.getKey()])
-                        .map({ s -> atUserPrefix(s) })
-                        .orElse("【${jiraVo?.user()?.getDisplayName()}】 ") + jiraVo.message()
-            )
-            setAutoEscape(false)
-        }
-
-        this.sendMsgAsync(req)
+        // 若存在jira帐号与qq映射关系 则通知
+        Optional.ofNullable(this.jira2qq[jiraVo?.user()?.getKey()])
+            .map({ s -> atUserPrefix(s) })
+            .ifPresent({ msg ->
+                SendAllMessageReq req = new SendAllMessageReq()
+                req.with {
+                    setId(this.groupType, this.groupId)
+                    setMessage(msg + jiraVo.message())
+                    setAutoEscape(false)
+                }
+                this.sendMsgAsync(req)
+            })
     }
 
     /**
