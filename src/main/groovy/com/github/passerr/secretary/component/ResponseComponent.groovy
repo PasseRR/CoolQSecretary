@@ -7,9 +7,8 @@ import org.springframework.stereotype.Component
 
 /**
  * 消息对话组件
- * @author xiehai
- * @date 2018/12/27 13:21
- * @Copyright ( c ) tellyes tech. inc. co.,ltd
+ * @author xiehai* @date 2018/12/27 13:21
+ * @Copyright (c) tellyes tech. inc. co.,ltd
  */
 @Component
 class ResponseComponent {
@@ -30,6 +29,6 @@ class ResponseComponent {
         // 若命令匹配按照命令响应
             .map({ it -> it.execute(req) })
         // 未匹配到命令 按照机器人对话响应
-            .orElse(this.itpkComponent.chat(req.getLegalMessage()))
+            .orElseGet({ this.itpkComponent.chat(req.getLegalMessage()) })
     }
 }
