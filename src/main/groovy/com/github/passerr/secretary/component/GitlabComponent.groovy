@@ -43,6 +43,6 @@ class GitlabComponent {
         params.put("variables[${meta.env}]" as String, "true")
         this.gitlabApi.deploy(meta.projectId, params).execute()
 
-        return null
+        return ""
     }
 }
