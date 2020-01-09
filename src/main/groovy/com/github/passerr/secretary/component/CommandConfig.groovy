@@ -65,12 +65,12 @@ class CommandConfig {
             new TranslateCmd(this.baiduComponent.&translate),
             // 翻译帮助命令
             new TranslateHelpCmd(),
-            // 聊天命令
-            new PhraseCmd(this.itpkComponent.&phrase),
             // 部署帮助命令
             new DeployHelpCmd(this.deployMetaMap),
             // 部署命令
-            new DeployCmd(this.gitlabComponent.&deploy)
+            new DeployCmd(this.gitlabComponent.&deploy),
+            // 成语接龙 必须在四个字命令之后
+            new PhraseCmd(this.itpkComponent.&phrase)
         )
     }
 }

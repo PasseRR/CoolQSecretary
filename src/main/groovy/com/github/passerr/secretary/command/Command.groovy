@@ -7,9 +7,8 @@ import java.util.regex.Matcher
 
 /**
  * 抽象命令
- * @author xiehai
- * @date 2018/12/27 13:37
- * @Copyright ( c ) tellyes tech. inc. co.,ltd
+ * @author xiehai* @date 2018/12/27 13:37
+ * @Copyright (c) tellyes tech. inc. co.,ltd
  */
 abstract class Command<T> {
     /**
@@ -48,7 +47,13 @@ abstract class Command<T> {
      */
     protected String parameter(String message) {
         def en = this.matchEn(message)
-        en.matches() ? en.group(1) : this.matchCn(message).group(1)
+        if (en.matches()) {
+            return en.group(1)
+        }
+
+        def cn = this.matchCn(message)
+        cn.matches()
+        return cn.group(1)
     }
 
     /**
