@@ -7,7 +7,7 @@ logging:
     org.springframework.*: info
     org.apache.http.*: error
     org.hibernate.*: error
-    com.github.*: info
+    com.github.*: debug
 
 spring:
   # gson属性驼峰转下划线
@@ -82,3 +82,29 @@ secretary:
     # jira url
     url: http://192.168.2.20
     token: PASfxcDM_a-4C-LNMH_K
+    # 部署环境
+    deploy:
+      - key: 成铁教务
+        token: 30df6856d2b8c7928c809d91205ed5
+        ref: dev
+        projectId: 44
+        env: ALIYUN_EMS
+        desc: 成铁阿里云教务
+      - key: 南充教务
+        token: 30df6856d2b8c7928c809d91205ed5
+        ref: dev
+        env: ALIYUN_EMS
+        projectId: 44
+        desc: 南充阿里云教务
+      - key: 南充评教
+        token: 30df6856d2b8c7928c809d91205ed5
+        ref: dev
+        env: ALIYUN_EMS
+        projectId: 44
+        desc: 南充阿里云评教
+      - key: 昆卫教务
+        token: 30df6856d2b8c7928c809d91205ed5
+        ref: dev
+        env: ALIYUN_EMS
+        projectId: 44
+        desc: 昆卫12环境教务

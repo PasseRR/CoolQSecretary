@@ -44,6 +44,7 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
     compile "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
     compile "com.squareup.retrofit2:converter-gson:${retrofit2Version}"
+    compileOnly "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
     testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     testCompile "org.spockframework:spock-spring:${spockSprignVersion}"
 }
