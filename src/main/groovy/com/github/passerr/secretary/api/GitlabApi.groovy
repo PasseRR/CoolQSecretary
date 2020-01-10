@@ -34,4 +34,12 @@ interface GitlabApi {
     @POST("/api/v4/projects/{projectId}/trigger/pipeline")
     @FormUrlEncoded
     Call<GitlabVo> deploy(@Path("projectId") Long id, @FieldMap Map<String, String> params)
+
+    /**
+     * 获得项目成员
+     * @param id 项目id
+     * @return {@link List}
+     */
+    @GET("/api/v4/projects/{projectId}/users")
+    Call<List<UserVo>> members(@Path("projectId") Long id)
 }

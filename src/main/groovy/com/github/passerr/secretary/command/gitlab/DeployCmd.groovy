@@ -3,7 +3,7 @@ package com.github.passerr.secretary.command.gitlab
 import com.github.passerr.secretary.command.Command
 import com.github.passerr.secretary.vo.cool.MessageReq
 
-import java.util.function.Function
+import java.util.function.BiFunction
 import java.util.regex.Matcher
 
 /**
@@ -13,13 +13,15 @@ import java.util.regex.Matcher
  * @author xiehai
  */
 class DeployCmd extends Command<String> {
-    DeployCmd(Function<String, String> function) {
-        super(function)
+    BiFunction<String, Long, String> function
+
+    DeployCmd(BiFunction<String, Long, String> function) {
+        this.function = function
     }
 
     @Override
     String execute(MessageReq messageReq) {
-        return super.executor.apply(super.parameter(messageReq.legalMessage))
+        this.function.apply(super.parameter(messageReq.legalMessage), messageReq.userId)
     }
 
     @Override

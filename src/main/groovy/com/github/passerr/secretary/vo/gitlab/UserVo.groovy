@@ -9,4 +9,5 @@ class UserVo {
     String username
     String name
     String twitter
+    String state
 }

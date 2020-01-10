@@ -91,20 +91,20 @@ secretary:
         env: ALIYUN_EMS
         desc: 成铁阿里云教务
       - key: 南充教务
-        token: 30df6856d2b8c7928c809d91205ed5
+        token: 617f29ffa59583f75799409d08e970
         ref: dev
         env: ALIYUN_EMS
-        projectId: 44
+        projectId: 16
         desc: 南充阿里云教务
       - key: 南充评教
-        token: 30df6856d2b8c7928c809d91205ed5
+        token: 617f29ffa59583f75799409d08e970
         ref: dev
-        env: ALIYUN_EMS
-        projectId: 44
+        env: ALIYUN_EVALUATE
+        projectId: 16
         desc: 南充阿里云评教
       - key: 昆卫教务
-        token: 30df6856d2b8c7928c809d91205ed5
-        ref: dev
-        env: ALIYUN_EMS
-        projectId: 44
+        token: 617f29ffa59583f75799409d08e970
+        ref: kunwei
+        env: 12_SM
+        projectId: 16
         desc: 昆卫12环境教务
