@@ -42,7 +42,7 @@ class GitlabComponent {
             return "你不是${key}的项目成员"
         }
 
-
+        // 项目部署配置
         DeployMeta meta = this.deployMetaMap.get(key)
         // gitlab帐号
         def account = this.qq2Jira.get(String.valueOf(userId))
@@ -53,11 +53,12 @@ class GitlabComponent {
             return "你不是${key}的项目成员"
         }
 
+        // 触发器api
         def params = [
-            token: meta.token,
-            ref  : meta.ref
+            token                               : meta.token,
+            ref                                 : meta.ref,
+            ("variables[${meta.env}]" as String): "true"
         ]
-        params.put("variables[${meta.env}]" as String, "true")
         this.gitlabApi.deploy(meta.projectId, params).execute()
 
         return ""
