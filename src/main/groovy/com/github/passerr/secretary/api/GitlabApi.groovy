@@ -40,6 +40,6 @@ interface GitlabApi {
      * @param id 项目id
      * @return {@link List}
      */
-    @GET("/api/v4/projects/{projectId}/users")
+    @GET("/api/v4/projects/{projectId}/users?per_page=1024")
     Call<List<UserVo>> members(@Path("projectId") Long id)
 }
