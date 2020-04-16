@@ -127,7 +127,7 @@ class SendMessageComponent {
      * 消息直接发送
      * @param req 报文内容
      */
-    protected void sendMsg(SendAllMessageReq req) {
+    void sendMsg(SendAllMessageReq req) {
         try {
             def execute = this.coolQApi.sendMsg(req).execute()
             log.debug(this.gson.toJson(execute.body()))
@@ -140,7 +140,7 @@ class SendMessageComponent {
      * 异步消息发送
      * @param req 报文内容
      */
-    protected void sendMsgAsync(SendAllMessageReq req) {
+    void sendMsgAsync(SendAllMessageReq req) {
         try {
             def execute = this.coolQApi.sendMsgAsync(req).execute()
             log.debug(this.gson.toJson(execute.body()))
