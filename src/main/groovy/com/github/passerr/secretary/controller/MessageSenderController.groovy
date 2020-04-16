@@ -25,7 +25,7 @@ class MessageSenderController {
         req.with {
             setId(messageVo.type, messageVo.id)
             setMessage(messageVo.message)
-            setAutoEscape(true)
+            setAutoEscape(false)
         }
 
         // 异步发送消息
