@@ -70,11 +70,11 @@ secretary:
     doneTransitions: 3,10002
     jql:
       # 个人未完成问题
-      user_issue: assignee = %s AND status not in (验证通过, 关闭, done, 完成) ORDER BY createdDate DESC
+      user_issue: assignee = %s AND statusCategory != Done ORDER BY createdDate DESC
       # 个人未完成任务
-      user_task: assignee = %s AND status not in (验证通过, 关闭, done, 完成) AND type not in (故障, 建议) ORDER BY createdDate DESC
+      user_task: assignee = %s AND statusCategory != Done AND type not in (${secretary.jira.bugTypeIds}) ORDER BY createdDate DESC
       # 个人未完成bug
-      user_bug: assignee = %s AND status not in (验证通过, 关闭, done, 完成) AND type in (故障, 建议) ORDER BY createdDate DESC
+      user_bug: assignee = %s AND statusCategory != Done AND type in (${secretary.jira.bugTypeIds}) ORDER BY createdDate DESC
   gitlab:
     # jira url
     url: http://192.168.2.20

@@ -36,9 +36,6 @@ JIRA命令
     我的任务，task         查询jira所有未完成任务 e.g. 【task】
     我的缺陷，bug          查询jira所有未完成bug e.g. 【bug】
     详情，detail          查询问题详情 e.g. 【detail EDUADMIN-973】
-    备注，remark          查询问题备注 e.g. 【remark EDUADMIN-973】
-Gitlab命令
-    部署帮助，dhelp        gitlab部署帮助命令 e.g. 【部署帮助】
-    部署，deploy           gitlab部署帮助命令 e.g. 【部署 成铁教务】"""
+    备注，remark          查询问题备注 e.g. 【remark EDUADMIN-973】"""
     }
 }
