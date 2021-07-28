@@ -30,9 +30,9 @@ secretary:
     token: Mgep4rV49rM8Jf
     # 用于jira&gitlab webhooks消息发送
     # 工作群/讨论组id 1575716762
-    groupId: 1575716762
+    groupId: 854272155
     # 群类型 discuss/group
-    groupType: discuss
+    groupType: group
   # 茉莉机器人配置
   itpk:
     # 机器人对话服务器url
@@ -57,16 +57,13 @@ secretary:
     token: aGFpLnhpZToxMjM0NTY
     # 用户名和qq关系
     users:
-      Admin: 412810549
-      ying.huang: 410571470
-      xiaoling.gou: 1579231853
-      xin.yang: 1786370596
       hai.xie: 304560216
-      fuwei.liu: 1021901278
-      peng.tao: 240098498
-      kai.liu: 1186578324
-      yiming.liu: 530265498
-      weibo.liu: 804912547
+      hanbing.hu: 648273818
+      jie.bai: 1045516761
+      shuai.liu: 1462673959
+      yangyue: 1468032960
+      jingyu.xiao: 1173853143
+      xu.liao: 463189296
     # 为bug的issue类型
     bugTypeIds: 10004,10005
     # 开发完成节点包括任务及bug

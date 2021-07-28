@@ -2,34 +2,25 @@ group "com.github.passerr"
 version "1.0.0"
 
 buildscript {
-    ext {
-        springBootVersion = "2.1.1.RELEASE"
-        groovyVersion = "2.5.2"
-        retrofit2Version = "2.5.0"
-        spockSprignVersion = "1.2-groovy-2.5"
-    }
     repositories {
         maven {
-            url "https://plugins.gradle.org/m2/"
+            url 'https://maven.aliyun.com/repository/gradle-plugin'
         }
     }
 
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.1.RELEASE")
     }
 }
+
 
 apply plugin: "idea"
 apply plugin: "groovy"
 apply plugin: "org.springframework.boot"
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-
 repositories {
     maven {
-        url "http://maven.aliyun.com/nexus/content/groups/public"
+        url "https://maven.aliyun.com/nexus/content/groups/public"
     }
     mavenCentral()
 }
@@ -40,11 +31,11 @@ tasks.withType(GroovyCompile) {
 
 
 dependencies {
-    compile "org.codehaus.groovy:groovy-all:${groovyVersion}"
-    compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
-    compile "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
-    compile "com.squareup.retrofit2:converter-gson:${retrofit2Version}"
-    compileOnly "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
-    testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
-    testCompile "org.spockframework:spock-spring:${spockSprignVersion}"
+    implementation "org.codehaus.groovy:groovy-all:2.5.2"
+    implementation "org.springframework.boot:spring-boot-starter-web:2.1.1.RELEASE"
+    implementation "org.springframework.boot:spring-boot-configuration-processor:2.1.1.RELEASE"
+    implementation "com.squareup.retrofit2:converter-gson:2.5.0"
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:2.1.1.RELEASE"
+    testImplementation "org.springframework.boot:spring-boot-starter-test:2.1.1.RELEASE"
+    testImplementation "org.spockframework:spock-spring:1.2-groovy-2.5"
 }
