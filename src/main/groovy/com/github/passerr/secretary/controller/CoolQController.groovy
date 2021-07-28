@@ -1,7 +1,11 @@
 package com.github.passerr.secretary.controller
 
 import com.github.passerr.secretary.component.ResponseComponent
-import com.github.passerr.secretary.vo.cool.*
+import com.github.passerr.secretary.vo.cool.DiscussMessageReq
+import com.github.passerr.secretary.vo.cool.GroupMessageReq
+import com.github.passerr.secretary.vo.cool.MessageResp
+import com.github.passerr.secretary.vo.cool.PrivateMessageReq
+import com.github.passerr.secretary.vo.cool.TypeReq
 import com.google.gson.Gson
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
@@ -12,13 +16,15 @@ import org.springframework.web.bind.annotation.RestController
 import javax.servlet.http.HttpServletRequest
 import java.util.stream.Collectors
 
-import static com.github.passerr.secretary.constants.CoolQConstants.*
+import static com.github.passerr.secretary.constants.CoolQConstants.MESSAGE_TYPE_DISCUSS
+import static com.github.passerr.secretary.constants.CoolQConstants.MESSAGE_TYPE_GROUP
+import static com.github.passerr.secretary.constants.CoolQConstants.MESSAGE_TYPE_PRIVATE
+import static com.github.passerr.secretary.constants.CoolQConstants.POST_TYPE_MESSAGE
 
 /**
  * 酷Q消息接收接口
- * @author xiehai
- * @date 2018/12/04 15:33
- * @Copyright ( c ) tellyes tech. inc. co.,ltd
+ * @author xiehai* @date 2018/12/04 15:33
+ * @Copyright (c) tellyes tech. inc. co.,ltd
  */
 @RestController
 @RequestMapping("/coolQ")
@@ -32,7 +38,6 @@ class CoolQController {
     @PostMapping
     def receive(HttpServletRequest request) {
         String json = request.getReader().lines().collect(Collectors.joining("\n"))
-        log.debug(json)
         def type = this.gson.fromJson(json, TypeReq)
         switch (type.getPostType()) {
             case POST_TYPE_MESSAGE:
@@ -62,5 +67,7 @@ class CoolQController {
                 log.warn("暂时不支持的推送消息类型{}", type.getPostType())
                 break
         }
+
+        return new MessageResp("")
     }
 }
