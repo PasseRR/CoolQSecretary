@@ -9,7 +9,7 @@ buildscript {
     }
 
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.1.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.3.12.RELEASE")
     }
 }
 
@@ -29,13 +29,12 @@ tasks.withType(GroovyCompile) {
     groovyOptions.encoding = "UTF-8"
 }
 
-
 dependencies {
     implementation "org.codehaus.groovy:groovy-all:2.5.2"
-    implementation "org.springframework.boot:spring-boot-starter-web:2.1.1.RELEASE"
-    implementation "org.springframework.boot:spring-boot-configuration-processor:2.1.1.RELEASE"
+    implementation "org.springframework.boot:spring-boot-starter-web:2.3.12.RELEASE"
+    implementation "org.springframework.boot:spring-boot-configuration-processor:2.3.12.RELEASE"
     implementation "com.squareup.retrofit2:converter-gson:2.5.0"
-    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:2.1.1.RELEASE"
-    testImplementation "org.springframework.boot:spring-boot-starter-test:2.1.1.RELEASE"
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:2.3.12.RELEASE"
+    testImplementation "org.springframework.boot:spring-boot-starter-test:2.3.12.RELEASE"
     testImplementation "org.spockframework:spock-spring:1.2-groovy-2.5"
 }

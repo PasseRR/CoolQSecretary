@@ -67,7 +67,5 @@ class CoolQController {
                 log.warn("暂时不支持的推送消息类型{}", type.getPostType())
                 break
         }
-
-        return new MessageResp("")
     }
 }
