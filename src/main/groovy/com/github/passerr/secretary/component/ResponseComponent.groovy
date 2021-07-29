@@ -31,4 +31,13 @@ class ResponseComponent {
         // 未匹配到命令 按照机器人对话响应
             .orElseGet({ this.itpkComponent.chat(req.getLegalMessage()) })
     }
+
+    /**
+     * 回复 抄送源@消息
+     * @param req {@link MessageReq}
+     * @return 回复字符串
+     */
+    String reply(MessageReq req) {
+        String.format("[CQ:reply,id=%d][CQ:at,qq=%d]%s", req.messageId, req.userId, this.response(req))
+    }
 }

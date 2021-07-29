@@ -19,8 +19,7 @@ import java.util.stream.Collectors
 import static com.github.passerr.secretary.constants.CoolQConstants.MESSAGE_TYPE_DISCUSS
 import static com.github.passerr.secretary.constants.CoolQConstants.MESSAGE_TYPE_GROUP
 import static com.github.passerr.secretary.constants.CoolQConstants.MESSAGE_TYPE_PRIVATE
-import static com.github.passerr.secretary.constants.CoolQConstants.POST_TYPE_MESSAGE
-
+import static com.github.passerr.secretary.constants.CoolQConstants.POST_TYPE_MESSAGE 
 /**
  * 酷Q消息接收接口
  * @author xiehai* @date 2018/12/04 15:33
@@ -49,13 +48,13 @@ class CoolQController {
                     case MESSAGE_TYPE_GROUP:
                         def req = this.gson.fromJson(json, GroupMessageReq)
                         if (req.needReply()) {
-                            return new MessageResp(this.responseComponent.response(req))
+                            return new MessageResp(this.responseComponent.reply(req))
                         }
                         break
                     case MESSAGE_TYPE_DISCUSS:
                         def req = this.gson.fromJson(json, DiscussMessageReq)
                         if (req.needReply()) {
-                            return new MessageResp(this.responseComponent.response(req))
+                            return new MessageResp(this.responseComponent.reply(req))
                         }
                         break
                     default:
