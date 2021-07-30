@@ -19,7 +19,8 @@ import java.util.stream.Collectors
 import static com.github.passerr.secretary.constants.CoolQConstants.MESSAGE_TYPE_DISCUSS
 import static com.github.passerr.secretary.constants.CoolQConstants.MESSAGE_TYPE_GROUP
 import static com.github.passerr.secretary.constants.CoolQConstants.MESSAGE_TYPE_PRIVATE
-import static com.github.passerr.secretary.constants.CoolQConstants.POST_TYPE_MESSAGE 
+import static com.github.passerr.secretary.constants.CoolQConstants.POST_TYPE_MESSAGE
+
 /**
  * 酷Q消息接收接口
  * @author xiehai* @date 2018/12/04 15:33
@@ -47,16 +48,10 @@ class CoolQController {
                         return new MessageResp(this.responseComponent.response(req))
                     case MESSAGE_TYPE_GROUP:
                         def req = this.gson.fromJson(json, GroupMessageReq)
-                        if (req.needReply()) {
-                            return new MessageResp(this.responseComponent.reply(req))
-                        }
-                        break
+                        return new MessageResp(this.responseComponent.replyGroup(req))
                     case MESSAGE_TYPE_DISCUSS:
                         def req = this.gson.fromJson(json, DiscussMessageReq)
-                        if (req.needReply()) {
-                            return new MessageResp(this.responseComponent.reply(req))
-                        }
-                        break
+                        return new MessageResp(this.responseComponent.reply(req))
                     default:
                         log.warn("暂时不支持的消息类型{}", type.getMessageType())
                         break

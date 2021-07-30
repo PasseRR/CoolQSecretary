@@ -18,7 +18,7 @@ interface CoolQApi {
      * @return 应答
      */
     @POST("/send_group_msg")
-    Call<CoolResp> sendGroupMsg(@Body SendGroupMessageReq req)
+    Call<CoolResp<Void>> sendGroupMsg(@Body SendGroupMessageReq req)
 
     /**
      * 讨论组消息发送
@@ -26,7 +26,7 @@ interface CoolQApi {
      * @return 应答
      */
     @POST("/send_discuss_msg")
-    Call<CoolResp> sendDiscussMsg(@Body SendDiscussMessageReq req)
+    Call<CoolResp<Void>> sendDiscussMsg(@Body SendDiscussMessageReq req)
 
     /**
      * 私人消息发送
@@ -42,7 +42,7 @@ interface CoolQApi {
      * @return 应答
      */
     @POST("/send_msg")
-    Call<CoolResp> sendMsg(@Body SendAllMessageReq req)
+    Call<CoolResp<CoolMessageResp>> sendMsg(@Body SendAllMessageReq req)
 
     /**
      * 异步发送消息
@@ -50,5 +50,5 @@ interface CoolQApi {
      * @return 应答
      */
     @POST("/send_msg_async")
-    Call<CoolResp> sendMsgAsync(@Body SendAllMessageReq req)
+    Call<CoolResp<CoolMessageResp>> sendMsgAsync(@Body SendAllMessageReq req)
 }

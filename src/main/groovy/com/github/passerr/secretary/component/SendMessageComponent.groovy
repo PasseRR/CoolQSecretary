@@ -9,8 +9,7 @@ import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.stereotype.Component
-
+import org.springframework.stereotype.Component 
 /**
  * 消息发送组件
  * @author xiehai* @date 2018/12/04 16:20
@@ -127,10 +126,12 @@ class SendMessageComponent {
      * 消息直接发送
      * @param req 报文内容
      */
-    void sendMsg(SendAllMessageReq req) {
+    long sendMsg(SendAllMessageReq req) {
         try {
             def execute = this.coolQApi.sendMsg(req).execute()
-            log.debug(this.gson.toJson(execute.body()))
+            def body = execute.body()
+            log.debug(this.gson.toJson(body))
+            return body.data.messageId
         } catch (Exception e) {
             log.error(e.getMessage(), e)
         }

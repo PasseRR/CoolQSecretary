@@ -6,7 +6,8 @@ package com.github.passerr.secretary.vo.cool
  * @date 2018/12/04 21:31
  * @Copyright ( c ) tellyes tech. inc. co.,ltd
  */
-class CoolResp {
+class CoolResp<T> {
     String status
     Integer retcode
+    T data
 }

@@ -1,6 +1,7 @@
 package com.github.passerr.secretary.component
 
 import com.github.passerr.secretary.command.Command
+import com.github.passerr.secretary.vo.cool.GroupMessageReq
 import com.github.passerr.secretary.vo.cool.MessageReq
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Component
 class ResponseComponent {
     @Autowired
     ItpkComponent itpkComponent
+    @Autowired
+    MatchComponent matchComponent
     @Autowired
     List<Command<?>> commands
 
@@ -38,6 +41,24 @@ class ResponseComponent {
      * @return 回复字符串
      */
     String reply(MessageReq req) {
-        String.format("[CQ:reply,id=%d][CQ:at,qq=%d]%s", req.messageId, req.userId, this.response(req))
+        if (req.needReply()) {
+            return String.format("[CQ:reply,id=%d][CQ:at,qq=%d]%s", req.messageId, req.userId, this.response(req))
+        }
+    }
+
+    /**
+     * 群消息回复
+     * @param req {@link GroupMessageReq}
+     * @return 消息回复
+     */
+    String replyGroup(GroupMessageReq req) {
+        // 答题支持
+        if (this.matchComponent.isInQuiz(req.groupId)) {
+            String message = (req.needReply() ? req.getLegalMessage() : req.getMessage()).toUpperCase()
+            this.matchComponent.answer(req.groupId, message, req.userId)
+            return null
+        }
+
+        return this.reply(req)
     }
 }

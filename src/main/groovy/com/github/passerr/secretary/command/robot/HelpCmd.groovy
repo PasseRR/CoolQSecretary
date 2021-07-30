@@ -36,6 +36,10 @@ JIRA命令
     我的任务，task         查询jira所有未完成任务 e.g. 【task】
     我的缺陷，bug          查询jira所有未完成bug e.g. 【bug】
     详情，detail          查询问题详情 e.g. 【detail EDUADMIN-973】
-    备注，remark          查询问题备注 e.g. 【remark EDUADMIN-973】"""
+    备注，remark          查询问题备注 e.g. 【remark EDUADMIN-973】
+答题命令
+    答题分类，quiztype       答题分类    e.g. 【答题分类/quiztype】
+    答题，quiz             随机答题    e.g. 【答题/quiz】
+    分类答题，typequiz       按照分类答题 e.g.【分类答题/typequiz 文学】"""
     }
 }

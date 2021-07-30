@@ -10,6 +10,9 @@ import com.github.passerr.secretary.command.jira.IssueCmd
 import com.github.passerr.secretary.command.jira.ReleaseIssueCmd
 import com.github.passerr.secretary.command.jira.RemarkCmd
 import com.github.passerr.secretary.command.jira.TaskCmd
+import com.github.passerr.secretary.command.quiz.QuizCmd
+import com.github.passerr.secretary.command.quiz.QuizTypeCmd
+import com.github.passerr.secretary.command.quiz.TypeQuizCmd
 import com.github.passerr.secretary.command.robot.HelpCmd
 import com.github.passerr.secretary.command.robot.PhraseCmd
 import com.github.passerr.secretary.command.robot.TranslateCmd
@@ -18,7 +21,8 @@ import com.github.passerr.secretary.vo.gitlab.DeployMeta
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration 
+import org.springframework.context.annotation.Configuration
+
 /**
  * 机器人命令定义
  * @author xiehai* @date 2018/12/27 10:44
@@ -38,6 +42,8 @@ class CommandConfig {
     BaiduComponent baiduComponent
     @Autowired
     WorkGroupComponent workGroupComponent
+    @Autowired
+    MatchComponent matchComponent
     @Autowired
     @Qualifier("deployMetaMap")
     Map<String, DeployMeta> deployMetaMap
@@ -62,10 +68,14 @@ class CommandConfig {
             new TranslateCmd(this.baiduComponent.&translate),
             // 翻译帮助命令
             new TranslateHelpCmd(),
-//            // 部署帮助命令
-//            new DeployHelpCmd(this.deployMetaMap),
-//            // 部署命令
-//            new DeployCmd(this.gitlabComponent.&deploy),
+            // 答题命令
+            new QuizCmd(this.matchComponent.&start),
+            new QuizTypeCmd(this.matchComponent.&type),
+            new TypeQuizCmd(this.matchComponent.&start),
+            //            // 部署帮助命令
+            //            new DeployHelpCmd(this.deployMetaMap),
+            //            // 部署命令
+            //            new DeployCmd(this.gitlabComponent.&deploy),
             // 成语接龙 必须在四个字命令之后
             new PhraseCmd(this.itpkComponent.&phrase)
         )
