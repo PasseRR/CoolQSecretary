@@ -10,6 +10,7 @@ import org.springframework.core.io.ClassPathResource
 import org.springframework.stereotype.Component
 
 import javax.annotation.PostConstruct
+import java.nio.charset.StandardCharsets
 
 /**
  * 题目解析
@@ -33,7 +34,7 @@ class QuizComponent {
         long now = System.currentTimeMillis()
         log.debug("开始初始化题库...")
         Map<String, List<QuizVo>> map = [:]
-        Scanner scan = new Scanner(new ClassPathResource("quizzes.json").getInputStream())
+        Scanner scan = new Scanner(new ClassPathResource("quizzes.json").getInputStream(), StandardCharsets.UTF_8.name())
         while (scan.hasNextLine()) {
             String it = scan.nextLine()
             def quiz = this.gson.fromJson(it, QuizVo)
@@ -45,7 +46,7 @@ class QuizComponent {
         this.typeRange = new int[map.size()][3]
         int pre = 0
         map.entrySet()
-            .sort { a, b -> a.value.size() <=> b.value.size() }
+            .sort { a, b -> b.value.size() <=> a.value.size() }
             .eachWithIndex { Map.Entry<String, List<QuizVo>> entry, int i ->
                 int size = entry.value.size()
                 this.types << entry.key
@@ -56,7 +57,7 @@ class QuizComponent {
                 quizzes.addAll(entry.value)
             }
         this.types.eachWithIndex { String type, int i ->
-            log.debug("{}共{}题", type, this.typeRange[i][2])
+            log.debug("${type}共${this.typeRange[i][2]}题")
         }
         log.debug("题库合计类型{}种, 共{}题, 解析总计耗时{}ms", types.size(), quizzes.size(), System.currentTimeMillis() - now)
         log.debug("题库初始化完成...")
