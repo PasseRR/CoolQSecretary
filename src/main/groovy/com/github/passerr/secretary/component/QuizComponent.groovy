@@ -6,12 +6,10 @@ import com.google.gson.Gson
 import groovy.transform.PackageScope
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.core.io.ClassPathResource
 import org.springframework.stereotype.Component
 
 import javax.annotation.PostConstruct
-import java.nio.charset.StandardCharsets
-import java.nio.file.Files
-import java.nio.file.Paths
 
 /**
  * 题目解析
@@ -35,14 +33,15 @@ class QuizComponent {
         long now = System.currentTimeMillis()
         log.debug("开始初始化题库...")
         Map<String, List<QuizVo>> map = [:]
-        Files.readAllLines(Paths.get(QuizComponent.getResource("/quizzes.json").toURI()), StandardCharsets.UTF_8)
-            .each { it ->
-                def quiz = this.gson.fromJson(it, QuizVo)
-                map.merge(quiz.type, [quiz], { o, n ->
-                    o.addAll(n)
-                    o
-                })
-            }
+        Scanner scan = new Scanner(new ClassPathResource("quizzes.json").getInputStream())
+        while (scan.hasNextLine()) {
+            String it = scan.nextLine()
+            def quiz = this.gson.fromJson(it, QuizVo)
+            map.merge(quiz.type, [quiz], { o, n ->
+                o.addAll(n)
+                o
+            })
+        }
         this.typeRange = new int[map.size()][3]
         int pre = 0
         map.entrySet()
