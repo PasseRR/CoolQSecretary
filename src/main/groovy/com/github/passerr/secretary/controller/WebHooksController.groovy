@@ -33,8 +33,8 @@ class WebHooksController {
             return
         }
 
-        // 问题明细存在
-        if (jiraVo.getIssue()) {
+        // 问题明细存在且需要通知
+        if (jiraVo.getIssue() && jiraVo.needNotify()) {
             this.sendMessageComponent.sendJiraMsg(jiraVo)
         }
     }

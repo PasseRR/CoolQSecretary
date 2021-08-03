@@ -4,9 +4,8 @@ import groovy.transform.PackageScope
 
 /**
  * jira任务实体
- * @author xiehai
- * @date 2018/12/04 21:00
- * @Copyright ( c ) tellyes tech. inc. co.,ltd
+ * @author xiehai* @date 2018/12/04 21:00
+ * @Copyright (c) tellyes tech. inc. co.,ltd
  */
 class IssueVo {
     String id
@@ -29,7 +28,7 @@ class IssueVo {
     }
 
     protected UserVo getAtUser() {
-        return this.fields.isDone() ? this.fields.getCreator() : this.fields.getAssignee()
+        return (this.fields.isDone() || !this.fields.assignee) ? this.fields.creator : this.fields.assignee
     }
 
     /**

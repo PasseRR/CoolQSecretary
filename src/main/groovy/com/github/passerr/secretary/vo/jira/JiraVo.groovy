@@ -4,9 +4,8 @@ import com.github.passerr.secretary.enums.EventType
 
 /**
  * jira webhook 请求实体vo
- * @author xiehai
- * @date 2018/12/04 18:32
- * @Copyright ( c ) tellyes tech. inc. co.,ltd
+ * @author xiehai* @date 2018/12/04 18:32
+ * @Copyright (c) tellyes tech. inc. co.,ltd
  */
 class JiraVo {
     /**
@@ -32,6 +31,14 @@ class JiraVo {
             this.issue.getFields().getStatus().getName(),
             this.issue.getUserMessage()
         )
+    }
+
+    /**
+     * 当且仅当修改人和经办人不一致时才通知
+     * @return
+     */
+    boolean needNotify() {
+        return this.user.key != this.issue.getAtUser().key
     }
 
     UserVo user() {
